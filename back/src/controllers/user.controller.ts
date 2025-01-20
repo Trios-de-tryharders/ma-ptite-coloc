@@ -4,18 +4,25 @@ import { UserToCreateDTO } from "../types/user/dtos";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { UserPresenter } from "../types/user/presenters";
+import AppError from "../utils/appError";
 
 const userService = new UserService();
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-   const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
+    console.log("Request body:", req.body); // Log the request body
 
-   const dtoErrors = await validate(userToCreateDTO);
-   if (dtoErrors.length > 0) {
-     console.log(dtoErrors);
-     throw new Error("Invalid fields");
-   }
+    const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
+    console.log("Transformed DTO:", userToCreateDTO); // Log the transformed DTO
+
+    const dtoErrors = await validate(userToCreateDTO);
+    if (dtoErrors.length > 0) {
+      console.log(dtoErrors);
+      const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
+      const errors = constraints.map(constraint => constraint || "").join(", ");
+      console.log(errors);
+      throw new AppError(400, errors || "Invalid input");
+    }
     
     const user = await userService.registerUser(req.body);
     // appeler le logger service pour enregistrer QUI a créer un utilisateur (peut être un admin ou l'utilisateur lui même (?)  )
