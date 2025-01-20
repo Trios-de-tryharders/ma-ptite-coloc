@@ -8,8 +8,8 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 Promise.all([
-  // connectMySQLDB.initialize(), // Connexion à MySQL
-  connectMongooseDB(),        // Connexion à MongoDB
+  connectMySQLDB.initialize(), // Connexion à MySQL
+  // connectMongooseDB(),        // Connexion à MongoDB
 ]).then(() => {
   console.log("Connected to MongoDB!");
 
