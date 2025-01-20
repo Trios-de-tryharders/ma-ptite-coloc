@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import userRoutes from "./routes/user/user.routes";
+import colocationRoutes from "./routes/colocation.routes";
 import errorHandler from "./middlewares/errorHandler";
 import logger from "./middlewares/logger";
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes); // Routes pour les utilisateurs
+app.use("/api/colocations", colocationRoutes); // Routes pour les colocations
 
 // Middleware de gestion des erreurs (à vous de le personnaliser pour qu'il soit réutilisable, pensez aux classes d'erreurs)
 app.use(errorHandler);
