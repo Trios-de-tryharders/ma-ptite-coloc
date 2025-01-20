@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { UserEntity } from "../databases/mysql/user.entity";
 import { connectMySQLDB } from "../configs/databases/mysql.config";
-import { UserToCreateDTO } from "../types/user/dtos";
+import { SearchUserCriteriaDTO, UserToCreateDTO } from "../types/user/dtos";
 import { userToCreateInput } from "../types/user/Inputs";
 
 export class UserRepository {
@@ -16,16 +16,28 @@ export class UserRepository {
     return newUser
   }
 
-  async findOneByMail(mail: string): Promise<UserEntity | null> {
-    return this.userDB.findOne({ where: { email: mail } });
+  // async findOneByMail(mail: string): Promise<UserEntity | null> {
+  //   return this.userDB.findOne({ where: { email: mail } });
+  // }
+
+  // async findOneById(id: number): Promise<UserEntity | null> {
+  //   return this.userDB.findOne({ where: { id } });
+  // }
+
+  async findBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity[]> {
+    return this.userDB.find({ where: criteria });
   }
 
-  async findOneById(id: number): Promise<UserEntity | null> {
-    return this.userDB.findOne({ where: { id } });
+  async findOneBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity | null> {
+    return this.userDB.findOne({ where: criteria });
   }
 
   async findAll(): Promise<UserEntity[]> {
     return this.userDB.find();
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.userDB.delete(id);
   }
 
   async save(user: UserEntity): Promise<UserEntity> {

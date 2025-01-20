@@ -10,10 +10,7 @@ const userService = new UserService();
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    console.log("Request body:", req.body); // Log the request body
-
     const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
-    console.log("Transformed DTO:", userToCreateDTO); // Log the transformed DTO
 
     const dtoErrors = await validate(userToCreateDTO);
     if (dtoErrors.length > 0) {
@@ -56,6 +53,27 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
 
     const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
     res.status(200).json(userPresenter); // à vous de créer une class pour gérer les success
+  } catch (error) {
+    next(error); // Pass the error to the next middleware (errorHandler)
+  }
+};
+
+export const checkConnection = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+    const user = await userService.checkConnection(email, password);
+
+    const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+    res.status(200).json(userPresenter); // à vous de créer une class pour gérer les success
+  } catch (error) {
+    next(error); // Pass the error to the next middleware (errorHandler)
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const id = req.params.id;
+    res.status(204).send(await userService.deleteUser(id));
   } catch (error) {
     next(error); // Pass the error to the next middleware (errorHandler)
   }
