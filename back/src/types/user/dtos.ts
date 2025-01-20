@@ -1,6 +1,6 @@
 import { Expose } from "class-transformer";
 import { UserEntity } from "../../databases/mysql/user.entity";
-import { IsString, isString } from "class-validator";
+import { IsString, IsInt, Min } from "class-validator";
 
 export class UserToCreateDTO {
   @Expose()
@@ -10,4 +10,8 @@ export class UserToCreateDTO {
   lastname: string;
   email: string;
   password: string;
+
+  @IsInt()
+  @Min(18)
+  age: number;
 }
