@@ -17,6 +17,9 @@ export class UserEntity {
   @Column()
   password_hash: string; // grosse faille de sécurité -> à ne pas faire en prod -> A mettre dans une autre table avec une relation
 
+  @Column()
+  age: number;
+
   // @Column({ default: true })
   // isActive: boolean;
 }
