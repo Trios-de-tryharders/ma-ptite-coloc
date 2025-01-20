@@ -8,6 +8,11 @@ export class UserService {
 
   async registerUser(userToCreate: UserToCreateDTO): Promise<UserEntity> {
     // ON CHECK SI L'UTILISATEUR EXISTE DÉJÀ DANS LE REPOSITORY
+    const userAlreadyExists = await this.userRepository.findOneByMail(userToCreate.email);
+
+    if (userAlreadyExists) {
+      throw new Error('User already exists');
+    }
 
     // ON HASH LE MOT DE PASSE
     const saltRounds = 10;
@@ -23,5 +28,13 @@ export class UserService {
 
     // ON RETOURNE L'UTILISATEUR CRÉÉ
     return savedUser;
+  }
+
+  async getAllUsers(): Promise<UserEntity[]> {
+    return this.userRepository.findAll();
+  }
+
+  async getUserById(id: number): Promise<UserEntity | null> {
+    return this.userRepository.findOneById(id);
   }
 }

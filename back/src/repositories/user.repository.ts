@@ -16,6 +16,18 @@ export class UserRepository {
     return newUser
   }
 
+  async findOneByMail(mail: string): Promise<UserEntity | null> {
+    return this.userDB.findOne({ where: { email: mail } });
+  }
+
+  async findOneById(id: number): Promise<UserEntity | null> {
+    return this.userDB.findOne({ where: { id } });
+  }
+
+  async findAll(): Promise<UserEntity[]> {
+    return this.userDB.find();
+  }
+
   async save(user: UserEntity): Promise<UserEntity> {
     return this.userDB.save(user);
   }

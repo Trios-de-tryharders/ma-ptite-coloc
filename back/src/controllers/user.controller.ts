@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
 import { UserToCreateDTO } from "../types/user/dtos";
 import { plainToInstance } from "class-transformer";
@@ -7,7 +7,7 @@ import { UserPresenter } from "../types/user/presenters";
 
 const userService = new UserService();
 
-export const registerUser = async (req: Request, res: Response): Promise<void> => {
+export const registerUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
    const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
 
@@ -23,6 +23,33 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     const createdUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
     res.status(201).json(createdUser); // à vous de créer une class pour gérer les success
   } catch (error) {
-    throw error;
+    next(error); // Pass the error to the next middleware (errorHandler)
+  }
+};
+
+export const getAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const users = await userService.getAllUsers();
+    const usersPresenters = users.map(user => plainToInstance(UserPresenter, user, { excludeExtraneousValues: true }));
+    res.status(200).json(usersPresenters); // à vous de créer une class pour gérer les success
+  } catch (error) {
+    next(error); // Pass the error to the next middleware (errorHandler)
+  }
+};
+
+export const getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const user = await userService.getUserById(id);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" }); // à vous de créer une class pour gérer les erreurs
+      return;
+    }
+
+    const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+    res.status(200).json(userPresenter); // à vous de créer une class pour gérer les success
+  } catch (error) {
+    next(error); // Pass the error to the next middleware (errorHandler)
   }
 };

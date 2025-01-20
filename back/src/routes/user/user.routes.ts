@@ -8,6 +8,12 @@ const routes = Router();
 // Route pour l'inscription d'un utilisateur
 routes.post("/register", userController.registerUser);
 
+// Route pour obtenir la liste des utilisateurs
+routes.get("/", userController.getAllUsers);
+
+// Route pour obtenir un utilisateur par son ID
+routes.get("/:id", userController.getUserById);
+
 // Route pour la connexion d'un utilisateur
 routes.post("/login", /*userController.loginUser*/);
 
