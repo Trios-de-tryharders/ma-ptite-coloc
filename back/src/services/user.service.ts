@@ -89,12 +89,32 @@ export class UserService {
     return this.getUserBy({id});
   }
 
-  async updateUser(id: number, userToUpdate: Partial<UserEntity>): Promise<UserEntity | null> {
+  async updateUser(id: number, userToUpdate: Partial<UserEntity>, userId: number): Promise<UserEntity | null> {
+    const user = await this.getUserById(id);
+
+    if (!user) {
+      throw new AppError(404, "User not found");
+    }
+
+    if(userId !== user.id) {
+      throw new AppError(403, "You can't update others user");
+    }
+
     await this.userRepository.update(id, userToUpdate);
     return this.getUserById(id);
   }
 
-  async replaceUser(id: number, userToReplace: UserToCreateDTO): Promise<UserEntity | null> {
+  async replaceUser(id: number, userToReplace: UserToCreateDTO, userId: number): Promise<UserEntity | null> {
+    const user = await this.getUserById(id);
+
+    if (!user) {
+      throw new AppError(404, "User not found");
+    }
+
+    if(userId !== user.id) {
+      throw new AppError(403, "You can't update others user");
+    }
+
     await this.userRepository.replace(id, userToReplace);
     return this.getUserById(id);
   }

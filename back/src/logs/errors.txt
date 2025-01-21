@@ -68,3 +68,15 @@ Not connected - 2025-01-21T14:04:13.777Z - GET /api/colocations - 401 - Failed t
 Not connected - 2025-01-21T14:04:13.782Z - GET /api/users/me - 401 - Failed to authenticate token
 Not connected - 2025-01-21T14:04:15.715Z - GET /api/users/me - 401 - Failed to authenticate token
 Not connected - 2025-01-21T14:04:15.717Z - GET /api/colocations - 401 - Failed to authenticate token
+15 - 2025-01-21T14:08:41.115Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+15 - 2025-01-21T14:15:02.246Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+15 - 2025-01-21T14:16:19.855Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+15 - 2025-01-21T14:18:18.418Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+15 - 2025-01-21T14:18:22.601Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+15 - 2025-01-21T14:18:23.751Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+Not connected - 2025-01-21T14:19:48.027Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:19:48.031Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:19:49.956Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:19:49.959Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:19:51.096Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:19:51.098Z - GET /api/colocations - 401 - Failed to authenticate token

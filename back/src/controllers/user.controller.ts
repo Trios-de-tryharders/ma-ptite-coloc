@@ -6,6 +6,7 @@ import { validate } from "class-validator";
 import { UserPresenter } from "../types/user/presenters";
 import AppError from "../utils/appError";
 import * as jwtService from "../services/jwtService";
+import { writeLog } from "../utils/logHandler";
 
 const userService = new UserService();
 
@@ -14,7 +15,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
 
     const dtoErrors = await validate(userToCreateDTO);
-    
+
     if (dtoErrors.length > 0) {
       console.log(dtoErrors);
       const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
@@ -26,6 +27,9 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     // appeler le logger service pour enregistrer QUI a créer un utilisateur (peut être un admin ou l'utilisateur lui même (?)  )
 
     const createdUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+
+    writeLog(`USER :${createdUser.id}; EMAIL: ${createdUser.email}; ACTION: "create"`);
+
     res.status(201).json(createdUser); // à vous de créer une class pour gérer les success
   } catch (error) {
     next(error);
@@ -82,7 +86,6 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
 export const refreshUserToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const user = (req as any).decoded.user;
-    console.log(user);
     const token = await jwtService.signJWT(user);
 
     res.header('Authorization', 'Bearer ' + token);
@@ -103,6 +106,8 @@ export const checkConnection = async (req: Request, res: Response, next: NextFun
     const token = await jwtService.signJWT(userPresenter);
     const secret = await jwtService.signJWTSecret(userPresenter);
 
+    writeLog(`USER :${userPresenter.id}; EMAIL: ${userPresenter.email}; ACTION: "login"`);
+
     res.status(200).json({userPresenter, token: token, secret: secret}); // à vous de créer une class pour gérer les success
   } catch (error) {
     next(error); 
@@ -119,7 +124,9 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
     if(userId !== id) {
       throw new AppError(403, "You can't delete others account");
     }
-    
+
+    writeLog(`USER :${userId}; DELETED: ${id}; ACTION: "delete"`);
+
     res.status(204).send(await userService.deleteUser(id));
   } catch (error) {
     next(error); 
@@ -128,6 +135,9 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+
     const id = parseInt(req.params.id, 10);
     const userToUpdateDTO = plainToInstance(UserToModifyDTO, req.body, { excludeExtraneousValues: true });
 
@@ -138,8 +148,12 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
       throw new AppError(400, errors || "Invalid input");
     }
 
-    const updatedUser = await userService.updateUser(id, req.body);
+    const updatedUser = await userService.updateUser(id, req.body, userId);
     const userPresenter = plainToInstance(UserPresenter, updatedUser, { excludeExtraneousValues: true });
+
+    writeLog(`USER :${userId}; UPDATED: ${id}; ACTION: "update"`);
+
+
     res.status(200).json(userPresenter);
   } catch (error) {
     next(error);
@@ -148,6 +162,9 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
 export const replaceUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+
     const id = parseInt(req.params.id, 10);
     const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
 
@@ -158,7 +175,9 @@ export const replaceUser = async (req: Request, res: Response, next: NextFunctio
       throw new AppError(400, errors || "Invalid input");
     }
 
-    const replacedUser = await userService.replaceUser(id, req.body);
+    writeLog(`USER :${userId}; UPDATED: ${id}; ACTION: "update"`);
+
+    const replacedUser = await userService.replaceUser(id, req.body, userId);
     const userPresenter = plainToInstance(UserPresenter, replacedUser, { excludeExtraneousValues: true });
     res.status(200).json(userPresenter);
   } catch (error) {
