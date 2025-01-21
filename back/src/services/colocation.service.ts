@@ -25,11 +25,31 @@ export class ColocationService {
     return this.colocationRepository.findBy(criteria);
   }
 
-  async deleteColocation(id: number): Promise<void> {
+  async deleteColocation(id: number, userId: number): Promise<void> {
+    const colocation = await this.getColocationById(id);
+
+    if (!colocation) {
+      throw new AppError(404, "Colocation not found");
+    }
+
+    if(userId !== colocation.ownerId) {
+      throw new AppError(403, "You can't delete others colocation");
+    }
+
     await this.colocationRepository.delete(id);
   }
 
-  async updateColocation(id: number, colocationToUpdate: Partial<ColocationEntity>): Promise<ColocationEntity | null> {
+  async updateColocation(id: number, colocationToUpdate: Partial<ColocationEntity>, userId: number): Promise<ColocationEntity | null> {
+    const colocation = await this.getColocationById(id);
+
+    if (!colocation) {
+      throw new AppError(404, "Colocation not found");
+    }
+
+    if(userId !== colocation.ownerId) {
+      throw new AppError(403, "You can't update others colocation");
+    }
+     
     await this.colocationRepository.update(id, colocationToUpdate);
     return this.getColocationById(id);
   }
@@ -55,6 +75,28 @@ export class ColocationService {
     }
 
     colocation.roommates.push(roommate);
+    await this.colocationRepository.save(colocation);
+    return colocation;
+  }
+
+  async removeRoommate(colocationId: number, roommateId: number): Promise<ColocationEntity | null> {
+    const colocation = await this.getColocationById(colocationId);
+    console.log(colocation);
+    if (!colocation) {
+      throw new AppError(404, "Colocation not found");
+    }
+
+    const roommate = await this.colocationRepository.findUserById(roommateId);
+    console.log(roommate);
+    if (!roommate) {
+      throw new AppError(404, "Roommate not found");
+    }
+
+    if (!colocation.roommates.some(r => r.id === roommateId)) {
+      throw new AppError(400, "Roommate not in the colocation");
+    }
+
+    colocation.roommates = colocation.roommates.filter(r => r.id !== roommateId);
     await this.colocationRepository.save(colocation);
     return colocation;
   }

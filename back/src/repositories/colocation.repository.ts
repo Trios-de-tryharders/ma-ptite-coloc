@@ -47,4 +47,5 @@ export class ColocationRepository {
   async findUserById(userId: number): Promise<UserEntity | null> {
     return this.colocationDB.manager.findOne(UserEntity, { where: { id: userId } });
   }
+
 }

@@ -8,6 +8,7 @@ routes.post("/register", checkJWT, colocationController.registerColocation);
 routes.get("/", checkJWT ,colocationController.getAllColocations);
 routes.get("/:id", checkJWT, colocationController.getColocationById);
 routes.delete("/:id", checkJWT, colocationController.deleteColocation);
+routes.delete("/:id/removeRoommate/:roommateId", checkJWT, colocationController.removeRoommate);
 routes.patch("/:id", checkJWT, colocationController.updateColocation);
 routes.put("/:id", checkJWT, colocationController.replaceColocation);
 routes.post("/:id/addRoommate/:roommateId", checkJWT, colocationController.addRoommate);

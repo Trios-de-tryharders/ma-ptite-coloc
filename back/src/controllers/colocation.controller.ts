@@ -27,6 +27,7 @@ export const registerColocation = async (req: Request, res: Response, next: Next
     
     const colocation = await colocationService.registerColocation(req.body);
     const createdColocation = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
+    createdColocation.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
     res.status(201).json(createdColocation);
   } catch (error) {
     next(error);
@@ -72,11 +73,7 @@ export const deleteColocation = async (req: Request, res: Response, next: NextFu
 
     const id = parseInt(req.params.id, 10);
 
-    if(userId !== id) {
-      throw new AppError(403, "You can't delete others colocation");
-    }
-
-    await colocationService.deleteColocation(id);
+    await colocationService.deleteColocation(id, userId);
     res.status(204).send();
   } catch (error) {
     next(error);
@@ -85,6 +82,9 @@ export const deleteColocation = async (req: Request, res: Response, next: NextFu
 
 export const updateColocation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+
     const id = parseInt(req.params.id, 10);
     const colocationToUpdateDTO = plainToInstance(ColocationToModifyDTO, req.body, { excludeExtraneousValues: true });
 
@@ -95,9 +95,14 @@ export const updateColocation = async (req: Request, res: Response, next: NextFu
       throw new AppError(400, errors || "Invalid input");
     }
 
-    const updatedColocation = await colocationService.updateColocation(id, req.body);
+    const updatedColocation = await colocationService.updateColocation(id, req.body, userId);
     const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
-    res.status(200).json(colocationPresenter);
+    if (updatedColocation) {
+      colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      res.status(200).json(colocationPresenter);
+    } else {
+      res.status(404).json({ message: "Colocation not found" });
+    }
   } catch (error) {
     next(error);
   }
@@ -117,7 +122,12 @@ export const replaceColocation = async (req: Request, res: Response, next: NextF
 
     const replacedColocation = await colocationService.replaceColocation(id, req.body);
     const colocationPresenter = plainToInstance(ColocationPresenter, replacedColocation, { excludeExtraneousValues: true });
-    res.status(200).json(colocationPresenter);
+    if (replacedColocation) {
+      colocationPresenter.roommates = replacedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      res.status(200).json(colocationPresenter);
+    } else {
+      res.status(404).json({ message: "Colocation not found" });
+    }
   } catch (error) {
     next(error);
   }
@@ -143,7 +153,46 @@ export const addRoommate = async (req: Request, res: Response, next: NextFunctio
     await colocationService.addRoommate(colocationId, roommateId);
     const updatedColocation = await colocationService.getColocationById(colocationId);
     const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
-    res.status(200).json(colocationPresenter);
+    if (!updatedColocation) {
+      res.send(404).json({ message: "Colocation not found" });
+    } else {
+      colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      res.status(200).json(colocationPresenter);
+    }
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const removeRoommate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+    const colocationId = parseInt(req.params.id, 10);
+    const roommateId = parseInt(req.params.roommateId);
+    console.log(req.params.roommateId)
+    console.log(roommateId);
+
+    const colocation = await colocationService.getColocationById(colocationId);
+
+    if (!colocation) {
+      throw new AppError(404, "Colocation not found");
+    }
+
+    if (colocation.ownerId !== userId && !user.isAdmin) {
+      throw new AppError(403, "You are not authorized to remove a roommate from this colocation");
+    }
+
+    await colocationService.removeRoommate(colocationId, roommateId);
+    const updatedColocation = await colocationService.getColocationById(colocationId);
+    if (updatedColocation) {
+      const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
+      colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      res.status(200).json(colocationPresenter);
+    } else {
+      res.status(404).json({ message: "Colocation not found" });
+    }
   } catch (error) {
     next(error);
   }

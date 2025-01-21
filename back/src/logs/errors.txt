@@ -30,3 +30,41 @@
 2025-01-21T13:24:16.405Z - GET /api/users/me - 401 - Failed to authenticate token
 Not connected - 2025-01-21T13:27:23.311Z - DELETE /api/colocations/5 - 401 - Failed to authenticate token
 16 - 2025-01-21T13:27:49.004Z - DELETE /api/colocations/5 - 403 - You can't delete others colocation
+16 - 2025-01-21T13:36:46.124Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+Not connected - 2025-01-21T13:37:21.093Z - GET /api/colocations - 401 - No token provided
+Not connected - 2025-01-21T13:38:12.274Z - GET /api/colocations - 401 - No token provided
+16 - 2025-01-21T13:39:57.818Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+16 - 2025-01-21T13:40:22.785Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+Not connected - 2025-01-21T13:44:01.942Z - DELETE /api/colocations/9/removeRoommate/15 - 401 - Failed to authenticate token
+16 - 2025-01-21T13:44:21.010Z - DELETE /api/colocations/9/removeRoommate/15 - 400 - Invalid roommate ID
+16 - 2025-01-21T13:44:45.704Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+16 - 2025-01-21T13:45:39.292Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+16 - 2025-01-21T13:45:49.037Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+16 - 2025-01-21T13:46:20.516Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+16 - 2025-01-21T13:46:42.694Z - DELETE /api/colocations/9/removeRoommate/15 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+Not connected - 2025-01-21T13:47:11.496Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:47:11.499Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:47:31.062Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:47:31.068Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:09.431Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:09.436Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:22.591Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:22.599Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:24.387Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:24.393Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:34.836Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:34.838Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:36.265Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:48:36.270Z - GET /api/users/me - 401 - Failed to authenticate token
+16 - 2025-01-21T13:52:47.865Z - DELETE /api/colocations/9/removeRoommate/15 - 400 - Roommate not in the colocation
+Not connected - 2025-01-21T13:52:53.132Z - GET /api/colocations - 401 - Failed to authenticate token
+16 - 2025-01-21T13:57:31.782Z - DELETE /api/colocations/6 - 403 - You can't delete others colocation
+Not connected - 2025-01-21T13:58:25.416Z - POST /api/users/login - 404 - No user found with this email
+15 - 2025-01-21T13:59:22.381Z - DELETE /api/colocations/6 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:00:14.921Z - DELETE /api/colocations/6 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:01:04.842Z - DELETE /api/colocations/8 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:01:16.794Z - DELETE /api/colocations/6 - 403 - You can't delete others colocation
+Not connected - 2025-01-21T14:04:13.777Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:04:13.782Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:04:15.715Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:04:15.717Z - GET /api/colocations - 401 - Failed to authenticate token
