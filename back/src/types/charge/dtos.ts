@@ -52,10 +52,44 @@ export class SearchChargeCriteriaDTO {
   @IsInt()
   @Expose()
   colocation?: ColocationEntity;
+  
+  @Expose()
+  @IsOptional()
+  @Transform(({ value }) => new Date(value), { toClassOnly: true })
+  @IsDate()
+  date?: Date;
 
   @IsOptional()
-  @IsDate()
+  @IsBoolean()
   @Expose()
+  payed?: boolean;
+}
+
+export class ChargeToUpdateDTO {
+  @IsOptional()
+  @IsNumber()
+  @Expose()
+  id?: number;
+
+  @IsOptional()
+  @IsString()
+  @Expose()
+  type?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Expose()
+  payer?: UserEntity;
+
+  @IsOptional()
+  @IsInt()
+  @Expose()
+  colocation?: ColocationEntity;
+  
+  @Expose()
+  @IsOptional()
+  @Transform(({ value }) => (value ? new Date(value) : value), { toClassOnly: true })
+  @IsDate()
   date?: Date;
 
   @IsOptional()

@@ -3,6 +3,7 @@ import { ChargeEntity } from "../databases/mysql/charge.entity";
 import { connectMySQLDB } from "../configs/databases/mysql.config";
 import { ChargeToCreateDTO, SearchChargeCriteriaDTO } from "../types/charge/dtos";
 import { UserEntity } from "../databases/mysql/user.entity";
+import { ColocationEntity } from "../databases/mysql/colocation.entity";
 
 export class ChargeRepository {
   private chargeDB: Repository<ChargeEntity>;
@@ -46,5 +47,9 @@ export class ChargeRepository {
 
   async findUserById(userId: number): Promise<UserEntity | null> {
     return this.chargeDB.manager.findOne(UserEntity, { where: { id: userId } });
+  }
+
+  async findColocationById(colocationId: number): Promise<ColocationEntity | null> {
+    return this.chargeDB.manager.findOne(ColocationEntity, { where: { id: colocationId } });
   }
 }

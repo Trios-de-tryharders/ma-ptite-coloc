@@ -6,6 +6,7 @@ const router = Router();
 router.post("/", chargeController.createCharge);
 router.get("/", chargeController.getCharges);
 router.put("/:id", chargeController.updateCharge);
+router.patch("/:id", chargeController.patchCharge);
 router.delete("/:id", chargeController.deleteCharge);
 
 export default router;
