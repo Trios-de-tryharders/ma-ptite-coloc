@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as colocationController from "../controllers/colocation.controller";
+import { checkJWT } from '../middlewares/security';
 
 const routes = Router();
 

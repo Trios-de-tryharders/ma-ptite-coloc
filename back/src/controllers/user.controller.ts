@@ -100,10 +100,9 @@ export const checkConnection = async (req: Request, res: Response, next: NextFun
     const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
     
     const token = await jwtService.signJWT(userPresenter);
+    const secret = await jwtService.signJWTSecret(userPresenter);
 
-    res.header('Authorization', 'Bearer ' + token);
-    
-    res.status(200).json(userPresenter); // à vous de créer une class pour gérer les success
+    res.status(200).json({userPresenter, token: token, secret: secret}); // à vous de créer une class pour gérer les success
   } catch (error) {
     next(error); 
   }
@@ -158,6 +157,8 @@ export const replaceUser = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
+
+
 export const getUserProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   
   try {
@@ -177,6 +178,18 @@ export const getUserProfile = async (req: Request, res: Response, next: NextFunc
 
     const userPresenter = plainToInstance(UserPresenter, userProfile, { excludeExtraneousValues: true });
     res.status(200).json(userPresenter);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const refreshToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const user = (req as any).decoded.user;
+    const token = await jwtService.signJWT(user);
+
+    res.header('Authorization', 'Bearer ' + token);
+    res.status(200).json({ auth: 'ok', token });
   } catch (error) {
     next(error);
   }

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { checkJWT } from '../../middlewares/security';
+import { checkJWT, checkJWTSecret } from '../../middlewares/security';
 
 import * as userController from "../../controllers/user.controller";
 
@@ -16,6 +16,9 @@ routes.get("/", checkJWT, userController.getUser);
 
 // Route pour récupérer le profil de l'utilisateur connecté
 routes.get("/me", checkJWT, userController.getUserProfile);
+
+// Route pour récupérer le profil de l'utilisateur connecté
+routes.get("/refresh", checkJWTSecret, userController.refreshToken);
 
 // Route pour supprimer le profil d'un utilisateur
 routes.delete("/:id", checkJWT, userController.deleteUser)
