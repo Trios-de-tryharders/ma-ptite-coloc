@@ -206,3 +206,9 @@ Not connected - 2025-01-21T19:57:45.396Z - GET /api/users - 401 - Failed to auth
 Not connected - 2025-01-21T19:57:57.209Z - GET /api/users - 401 - Failed to authenticate token
 Not connected - 2025-01-21T19:58:22.276Z - POST /api/colocations/register - 401 - Failed to authenticate token
 Not connected - 2025-01-21T19:58:29.841Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T20:17:02.355Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T20:17:23.018Z - GET /api/colocations - 401 - Failed to authenticate token
+18 - 2025-01-21T20:17:32.486Z - POST /api/colocations/register - 400 - name must be a string
+18 - 2025-01-21T20:21:56.915Z - DELETE /api/colocations/8 - 404 - Colocation not found
+18 - 2025-01-21T20:22:03.048Z - DELETE /api/colocations/21 - 404 - Colocation not found
+Not connected - 2025-01-21T20:34:33.499Z - GET /api/users - 401 - Failed to authenticate token

@@ -12,8 +12,8 @@ export class ColocationService {
     return savedColocation;
   }
 
-  async getAllColocations(): Promise<ColocationEntity[]> {
-    return this.colocationRepository.findAll();
+  async getColocations(criteria: ColocationToModifyDTO): Promise<ColocationEntity[]> {
+    return this.colocationRepository.findBy(criteria);
   }
 
   async getColocationById(id: number): Promise<ColocationEntity | null> {

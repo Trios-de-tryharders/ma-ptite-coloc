@@ -42,9 +42,25 @@ export const registerColocation = async (req: Request, res: Response, next: Next
   }
 };
 
-export const getAllColocations = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getColocations = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const colocations = await colocationService.getAllColocations();
+    const criteria = req.query as any;
+    if (req.query.id) {
+      criteria.id = parseInt(req.query.id as string, 10);
+    }
+    if (req.query.area) {
+      criteria.area = parseInt(req.query.area as string, 10);
+    }
+    if (req.query.owner) {
+      criteria.owner = parseInt(req.query.owner as string, 10);
+    }
+    if (req.query.numberOfRooms) {
+      criteria.numberOfRooms = parseInt(req.query.numberOfRooms as string, 10);
+    }
+    const searchCriteria = plainToInstance(ColocationToModifyDTO, criteria, { excludeExtraneousValues: true });
+    
+    const colocations = await colocationService.getColocations(searchCriteria);
+
     const colocationsPresenters = colocations.map(colocation => {
       const colocationPresenter = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
       colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));

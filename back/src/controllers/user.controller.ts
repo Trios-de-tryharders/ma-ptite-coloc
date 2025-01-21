@@ -7,6 +7,7 @@ import { UserPresenter } from "../types/user/presenters";
 import AppError from "../utils/appError";
 import * as jwtService from "../services/jwtService";
 import { writeLog } from "../utils/logHandler";
+import { ColocationPresenter } from "../types/colocation/presenters"; // Add this import
 
 const userService = new UserService();
 
@@ -26,6 +27,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     // appeler le logger service pour enregistrer QUI a créer un utilisateur (peut être un admin ou l'utilisateur lui même (?)  )
 
     const createdUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+    createdUser.ownedColocations = user.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
 
     writeLog(`USER :${createdUser.id}; EMAIL: ${createdUser.email}; ACTION: "create"`);
 
@@ -55,7 +57,11 @@ export const getUser = async (req: Request, res: Response, next: NextFunction): 
     }
 
     const users = await userService.getUser(searchCriteria);
-    const usersPresenters = users.map(user => plainToInstance(UserPresenter, user, { excludeExtraneousValues: true }));
+    const usersPresenters = users.map(user => {
+      const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+      userPresenter.ownedColocations = user.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
+      return userPresenter;
+    });
     res.status(200).json(usersPresenters); // à vous de créer une class pour gérer les success
   } catch (error) {
     next(error);
@@ -76,6 +82,7 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
     }
 
     const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+    userPresenter.ownedColocations = user.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
     res.status(200).json(userPresenter); // à vous de créer une class pour gérer les success
   } catch (error) {
     next(error);
@@ -100,7 +107,12 @@ export const checkConnection = async (req: Request, res: Response, next: NextFun
     const { email, password } = req.body;
     const user = await userService.checkConnection(email, password);
 
+    if (!user) {
+      throw new AppError(401, "Invalid email or password");
+    }
+
     const userPresenter = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+    userPresenter.ownedColocations = user.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
     
     const token = await jwtService.signJWT(userPresenter);
     const secret = await jwtService.signJWTSecret(userPresenter);
@@ -148,7 +160,15 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     }
 
     const updatedUser = await userService.updateUser(id, req.body, userId);
+    
+
+    if (!updatedUser) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    
     const userPresenter = plainToInstance(UserPresenter, updatedUser, { excludeExtraneousValues: true });
+    userPresenter.ownedColocations = updatedUser.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
 
     writeLog(`USER :${userId}; UPDATED: ${id}; ACTION: "update"`);
 
@@ -177,7 +197,14 @@ export const replaceUser = async (req: Request, res: Response, next: NextFunctio
     writeLog(`USER :${userId}; UPDATED: ${id}; ACTION: "update"`);
 
     const replacedUser = await userService.replaceUser(id, req.body, userId);
+
+    if(!replacedUser) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
     const userPresenter = plainToInstance(UserPresenter, replacedUser, { excludeExtraneousValues: true });
+    userPresenter.ownedColocations = replacedUser.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
     res.status(200).json(userPresenter);
   } catch (error) {
     next(error);
@@ -203,6 +230,7 @@ export const getUserProfile = async (req: Request, res: Response, next: NextFunc
     }
 
     const userPresenter = plainToInstance(UserPresenter, userProfile, { excludeExtraneousValues: true });
+    userPresenter.ownedColocations = userProfile.ownedColocations.map(coloc => plainToInstance(ColocationPresenter, coloc, { excludeExtraneousValues: true })); // Add this line
     res.status(200).json(userPresenter);
   } catch (error) {
     next(error);

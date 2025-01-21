@@ -25,15 +25,15 @@ export class UserRepository {
   }
 
   async findBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity[]> {
-    return this.userDB.find({ where: criteria });
+    return this.userDB.find({ where: criteria, relations: ["ownedColocations"] });
   }
 
   async findOneBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity | null> {
-    return this.userDB.findOne({ where: criteria });
+    return this.userDB.findOne({ where: criteria, relations: ["ownedColocations"] });
   }
 
   async findAll(): Promise<UserEntity[]> {
-    return this.userDB.find();
+    return this.userDB.find({ relations: ["ownedColocations"] });
   }
 
   async delete(id: number): Promise<void> {
