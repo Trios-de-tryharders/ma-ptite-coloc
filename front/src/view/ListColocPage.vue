@@ -53,12 +53,12 @@ const fetchColocations = async () => {
 };
 
 // Fonction pour supprimer une colocation
-const deleteColoc = async (colocId, colocOwnerId) => {
+const deleteColoc = async (colocId, colocowner) => {
   try {
-    console.log(`ID de la colocation à supprimer: ${colocId}, ID du propriétaire: ${colocOwnerId}`);
+    console.log(`ID de la colocation à supprimer: ${colocId}, ID du propriétaire: ${colocowner}`);
 
     // Vérification si l'utilisateur est le propriétaire de la colocation
-    if (user.value.id !== colocOwnerId) {
+    if (user.value.id !== colocowner) {
       alert('Vous ne pouvez supprimer que vos propres colocations.');
       return;
     }
@@ -87,7 +87,7 @@ const deleteColoc = async (colocId, colocOwnerId) => {
 const colocLocation = ref("");
 const colocArea = ref("");
 const colocNumberOfRooms = ref(1); // Par défaut 1 chambre
-const colocOwnerName = ref("");
+const colocname = ref("");
 const colocDescription = ref("");
 
 // Fonction pour ajouter une colocation
@@ -96,7 +96,7 @@ const addColoc = async (event) => {
 
   try {
     // Vérifie que toutes les informations nécessaires sont présentes
-    if (!colocLocation.value || !colocArea.value || !colocOwnerName.value || !colocDescription.value) {
+    if (!colocLocation.value || !colocArea.value || !colocname.value || !colocDescription.value) {
       alert("Tous les champs doivent être remplis.");
       return;
     }
@@ -105,7 +105,7 @@ const addColoc = async (event) => {
       location: colocLocation.value,
       area: parseFloat(colocArea.value),
       numberOfRooms: parseInt(colocNumberOfRooms.value),
-      ownerName: colocOwnerName.value,
+      name: colocname.value,
       description: colocDescription.value
     };
 
@@ -127,7 +127,7 @@ const addColoc = async (event) => {
     colocLocation.value = "";
     colocArea.value = "";
     colocNumberOfRooms.value = 1;
-    colocOwnerName.value = "";
+    colocname.value = "";
     colocDescription.value = "";
 
     // Ajoute la nouvelle colocation à la liste des colocations localement
@@ -158,7 +158,7 @@ const addColoc = async (event) => {
           <li v-for="coloc in colocs" :key="coloc.id">
             <div class="coloc-card">
               <div>
-                <p>Owner : {{ coloc.ownerName }}</p>
+                <p>Owner : {{ coloc.name }}</p>
                 <p>Localisation: {{ coloc.location }}</p>
                 <p>Area: {{ coloc.area }}</p>
               </div>
@@ -167,7 +167,7 @@ const addColoc = async (event) => {
                 <p>{{ coloc.description }}</p>
               </div>
               <div>
-                <button @click="() => deleteColoc(coloc.id, coloc.ownerId)">Supprimer</button>
+                <button @click="() => deleteColoc(coloc.id, coloc.owner)">Supprimer</button>
               </div>
             </div>
           </li>
@@ -185,7 +185,7 @@ const addColoc = async (event) => {
           <input type="text" placeholder="Localisation" v-model="colocLocation" required />
           <input type="number" placeholder="Area (m²)" v-model="colocArea" required />
           <input type="number" placeholder="Nombre de chambres" v-model="colocNumberOfRooms" min="1" required />
-          <input type="text" placeholder="Nom du propriétaire" v-model="colocOwnerName" required />
+          <input type="text" placeholder="Nom du propriétaire" v-model="colocname" required />
           <input type="text" placeholder="Description" v-model="colocDescription" required />
           <button type="submit">Ajouter</button>
         </form>
