@@ -80,3 +80,101 @@ Not connected - 2025-01-21T14:19:49.956Z - GET /api/users/me - 401 - Failed to a
 Not connected - 2025-01-21T14:19:49.959Z - GET /api/colocations - 401 - Failed to authenticate token
 Not connected - 2025-01-21T14:19:51.096Z - GET /api/users/me - 401 - Failed to authenticate token
 Not connected - 2025-01-21T14:19:51.098Z - GET /api/colocations - 401 - Failed to authenticate token
+15 - 2025-01-21T14:27:30.986Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:27:32.045Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:27:33.384Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:27:35.459Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:30:05.056Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+Not connected - 2025-01-21T14:31:41.797Z - GET /api/colocations - 401 - Failed to authenticate token
+15 - 2025-01-21T14:32:29.820Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:33:48.720Z - POST /api/colocations/register - 500 - Cannot read properties of undefined (reading 'map')
+Not connected - 2025-01-21T14:35:16.255Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:35:16.258Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:35:31.459Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:35:31.464Z - GET /api/users/me - 401 - Failed to authenticate token
+15 - 2025-01-21T14:37:08.082Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:39:15.099Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:39:16.295Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+15 - 2025-01-21T14:39:18.965Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+Not connected - 2025-01-21T14:44:38.386Z - POST /api/users/login - 404 - No user found with this email
+15 - 2025-01-21T14:49:17.029Z - DELETE /api/colocations/[object%20PointerEvent] - 500 - ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'
+Not connected - 2025-01-21T14:49:58.210Z - POST /api/colocations/9/addRoommate/15 - 401 - Failed to authenticate token
+15 - 2025-01-21T14:50:04.509Z - POST /api/colocations/9/addRoommate/15 - 403 - You are not authorized to add a roommate to this colocation
+Not connected - 2025-01-21T14:52:08.323Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:52:08.326Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:52:12.011Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T14:52:12.018Z - GET /api/colocations - 401 - Failed to authenticate token
+16 - 2025-01-21T14:53:16.806Z - PATCH /api/colocations/4 - 404 - Colocation not found
+16 - 2025-01-21T14:53:21.849Z - PATCH /api/colocations/9 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`colocations`, CONSTRAINT `FK_c36e52fdd941e832326fcf8c70d` FOREIGN KEY (`chiefId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+15 - 2025-01-21T14:55:22.832Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+Not connected - 2025-01-21T14:55:33.855Z - GET /api/colocations - 401 - Failed to authenticate token
+15 - 2025-01-21T14:55:39.129Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:40.475Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:42.170Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:44.227Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:45.399Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:45.787Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:45.936Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:46.108Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:46.262Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:46.389Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:48.239Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:55:55.848Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:08.832Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:08.984Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:09.127Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:09.267Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:09.399Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:09.520Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:09.639Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:09.784Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+15 - 2025-01-21T14:56:20.649Z - DELETE /api/colocations/9 - 403 - You can't delete others colocation
+16 - 2025-01-21T15:03:39.827Z - PATCH /api/colocations/9 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`colocations`, CONSTRAINT `FK_c36e52fdd941e832326fcf8c70d` FOREIGN KEY (`chiefId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+16 - 2025-01-21T15:04:32.556Z - PATCH /api/colocations/9 - 500 - Property "chiefId" was not found in "ColocationEntity". Make sure your query is correct.
+16 - 2025-01-21T15:05:15.349Z - PATCH /api/colocations/9 - 500 - Property "chiefId" was not found in "ColocationEntity". Make sure your query is correct.
+Not connected - 2025-01-21T15:08:03.564Z - PATCH /api/colocations/9 - 401 - Failed to authenticate token
+16 - 2025-01-21T15:08:45.906Z - PATCH /api/colocations/9 - 404 - Chief not found
+16 - 2025-01-21T15:09:38.126Z - PATCH /api/colocations/9 - 500 - Property "chiefId" was not found in "ColocationEntity". Make sure your query is correct.
+16 - 2025-01-21T15:09:56.293Z - PATCH /api/colocations/9 - 500 - Property "chiefId" was not found in "ColocationEntity". Make sure your query is correct.
+Not connected - 2025-01-21T15:10:16.214Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:10:16.236Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:24:29.696Z - PATCH /api/colocations/9 - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:28:16.962Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:28:16.969Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:28:46.390Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:28:46.394Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:29:33.436Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:29:33.448Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:29:39.596Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:29:39.614Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:29:42.015Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:29:42.026Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:31:07.085Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:31:07.095Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:40:42.148Z - PATCH /api/colocations/9 - 401 - Failed to authenticate token
+Not connected - 2025-01-21T15:40:54.011Z - POST /api/users/login - 404 - No user found with this email
+Not connected - 2025-01-21T15:41:06.174Z - POST /api/users/login - 404 - No user found with this email
+Not connected - 2025-01-21T15:44:14.764Z - POST /api/users/login - 404 - No user found with this email
+Not connected - 2025-01-21T15:44:31.246Z - POST /api/users/login - 404 - No user found with this email
+Not connected - 2025-01-21T15:44:35.084Z - POST /api/users/login - 404 - No user found with this email
+Not connected - 2025-01-21T15:45:08.223Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:19.277Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:19.892Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:20.194Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:20.334Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:20.492Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:20.664Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:45:21.039Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T15:47:07.932Z - POST /api/users/register - 400 - isAdmin must be a boolean value
+Not connected - 2025-01-21T17:53:18.943Z - POST /api/charges - 400 - type must be a string, amount must not be less than 0, amount must be a number conforming to the specified constraints, payer must be an integer number, colocation must be an integer number, date must be a Date instance, payed must be a boolean value
+Not connected - 2025-01-21T17:55:33.565Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T17:56:08.108Z - POST /api/charges - 400 - date must be a Date instance, payed must be a boolean value
+Not connected - 2025-01-21T17:57:07.531Z - POST /api/charges - 400 - date must be a Date instance, payed must be a boolean value
+Not connected - 2025-01-21T17:57:22.410Z - POST /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-21T17:57:28.486Z - POST /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-21T17:57:34.759Z - POST /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-21T17:58:45.310Z - POST /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-21T17:58:49.840Z - POST /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-21T18:17:34.531Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T18:17:38.377Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T18:17:51.334Z - GET /api/users - 401 - Failed to authenticate token
