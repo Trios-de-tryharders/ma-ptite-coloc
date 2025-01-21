@@ -1,0 +1,32 @@
+2025-01-21T13:12:29.035Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:12:54.973Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:13:52.214Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:14:23.679Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:15:38.172Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:16:06.918Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:16:39.631Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:17:37.736Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:18:41.129Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:18:43.962Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:18:43.979Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:18:51.582Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:18:53.202Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:18:53.233Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:19:04.534Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:19:24.655Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:19:29.292Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:19:29.301Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:19:41.742Z - GET /api/users/refresh - 401 - Failed to authenticate token
+2025-01-21T13:21:18.871Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:21:22.309Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:21:22.337Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:22:02.675Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:22:45.516Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:22:45.520Z - GET /api/colocations - 401 - Failed to authenticate token
+2025-01-21T13:24:01.924Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:24:07.089Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:24:07.104Z - GET /api/colocations - 401 - Failed to authenticate token
+2025-01-21T13:24:16.393Z - GET /api/users/me - 401 - Failed to authenticate token
+2025-01-21T13:24:16.405Z - GET /api/users/me - 401 - Failed to authenticate token
+Not connected - 2025-01-21T13:27:23.311Z - DELETE /api/colocations/5 - 401 - Failed to authenticate token
+16 - 2025-01-21T13:27:49.004Z - DELETE /api/colocations/5 - 403 - You can't delete others colocation
