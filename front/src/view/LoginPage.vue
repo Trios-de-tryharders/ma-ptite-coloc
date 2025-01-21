@@ -69,24 +69,32 @@ export default {
       this.isRegister = !this.isRegister;
     },
     async handleLogin() {
-      const reponse = await fetch('http://10.111.9.33:3000/api/users/login',{
+      const response = await fetch('http://10.111.9.70:3000/api/users/login', {
         method: 'POST',
         mode: 'cors',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: this.loginEmail,
           password: this.loginPassword
         }),
-      })
-      const user = await reponse.json()
-      console.log(user)
+      });
 
-      if(reponse.ok){
-        localStorage.setItem('user', JSON.stringify(user))
-        this.$router.push('/')
-      }else{
+      const user = await response.json();
+      console.log(user);
+
+      if (response.ok) {
+        const token = user.token
+        const secret = user.secret
+
+        // Stocker le token dans le localStorage ou dans le state
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);  // Enregistrer le token dans localStorage
+        localStorage.setItem('secret', secret);  // Enregistrer le token dans localStorage
+
+        this.$router.push('/');
+      } else {
         console.error("Error:", user);
       }
     },
