@@ -5,7 +5,7 @@ import app from "./app";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT as string, 10) || 3000;
 
 Promise.all([
   connectMySQLDB.initialize(), // Connexion à MySQL
@@ -14,7 +14,7 @@ Promise.all([
   console.log("Connected to MongoDB!");
 
   // Lancer le serveur
-  app.listen(PORT, () => {
+  app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
 })
