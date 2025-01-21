@@ -1,7 +1,7 @@
 import { Router } from 'express';
+import { checkJWT } from '../../middlewares/security';
 
 import * as userController from "../../controllers/user.controller";
-// import { authenticate } from "../middlewares/auth.middleware";
 
 const routes = Router();
 
@@ -12,15 +12,18 @@ routes.post("/register", userController.registerUser);
 routes.post("/login", userController.checkConnection);
 
 // Route pour obtenir la liste des utilisateurs
-routes.get("/", userController.getAllUsers);
-
-// Route pour obtenir un utilisateur par son ID
-routes.get("/:id", userController.getUserById);
+routes.get("/", checkJWT, userController.getUser);
 
 // Route pour récupérer le profil de l'utilisateur connecté
-routes.get("/me", /* authenticate, userController.getUserProfile */);
+routes.get("/me", checkJWT, userController.getUserProfile);
 
 // Route pour supprimer le profil d'un utilisateur
-routes.delete("/:id", userController.deleteUser)
+routes.delete("/:id", checkJWT, userController.deleteUser)
+
+// Route pour mettre à jour partiellement un utilisateur
+routes.patch("/:id", checkJWT, userController.updateUser);
+
+// Route pour remplacer complètement un utilisateur
+routes.put("/:id", checkJWT, userController.replaceUser);
 
 export default routes;

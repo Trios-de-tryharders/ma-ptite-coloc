@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { UserEntity } from "../databases/mysql/user.entity";
 import { connectMySQLDB } from "../configs/databases/mysql.config";
-import { SearchUserCriteriaDTO, UserToCreateDTO } from "../types/user/dtos";
+import { SearchUserCriteriaDTO, UserToCreateDTO, UserToModifyDTO } from "../types/user/dtos";
 import { userToCreateInput } from "../types/user/Inputs";
 
 export class UserRepository {
@@ -16,13 +16,13 @@ export class UserRepository {
     return newUser
   }
 
-  // async findOneByMail(mail: string): Promise<UserEntity | null> {
-  //   return this.userDB.findOne({ where: { email: mail } });
-  // }
+  async update(id: number, userToUpdate: Partial<UserEntity>): Promise<void> {
+    await this.userDB.update(id, userToUpdate);
+  }
 
-  // async findOneById(id: number): Promise<UserEntity | null> {
-  //   return this.userDB.findOne({ where: { id } });
-  // }
+  async replace(id: number, userToReplace: UserToModifyDTO): Promise<void> {
+    await this.userDB.save({ ...userToReplace, id });
+  }
 
   async findBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity[]> {
     return this.userDB.find({ where: criteria });

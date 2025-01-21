@@ -33,12 +33,19 @@ export class UserService {
     return savedUser;
   }
 
-  async getAllUsers(): Promise<UserEntity[]> {
-    return this.userRepository.findAll();
+  async getUser(criteria: SearchUserCriteriaDTO): Promise<UserEntity[]> {
+    return this.userRepository.findBy(criteria);
   }
 
   async getUserById(id: number): Promise<UserEntity | null> {
-    return this.userRepository.findOneBy({id});
+    if (isNaN(id)) {
+      throw new AppError(400, "Invalid user ID");
+    }
+    return this.userRepository.findOneBy({ id });
+  }
+
+  async getUserBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity | null> {
+    return this.userRepository.findOneBy(criteria);
   }
 
   async getUsersBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity[] | null> {
@@ -70,5 +77,29 @@ export class UserService {
     await this.userRepository.delete(parseInt(id, 10));
 
     return "The user has been deleted"
+  }
+
+  async updateColocation(id: number, colocationToUpdate: Partial<UserEntity>): Promise<UserEntity | null> {
+    await this.userRepository.update(id, colocationToUpdate);
+    return this.getUserById(id);
+  }
+
+  async replaceColocation(id: number, colocationToReplace: UserToCreateDTO): Promise<UserEntity | null> {
+    await this.userRepository.replace(id, colocationToReplace);
+    return this.getUserBy({id});
+  }
+
+  async updateUser(id: number, userToUpdate: Partial<UserEntity>): Promise<UserEntity | null> {
+    await this.userRepository.update(id, userToUpdate);
+    return this.getUserById(id);
+  }
+
+  async replaceUser(id: number, userToReplace: UserToCreateDTO): Promise<UserEntity | null> {
+    await this.userRepository.replace(id, userToReplace);
+    return this.getUserById(id);
+  }
+
+  async getUserProfile(userId: number): Promise<UserEntity | null> {
+    return this.getUserById(userId);
   }
 }
