@@ -1,5 +1,24 @@
-<script>
+<script setup>
+  import { onMounted, ref } from 'vue';
+  import { useRouter } from 'vue-router';
 
+  const user = ref(null); // Stockera les infos utilisateur
+  const router = useRouter();
+
+  // Récupère les informations utilisateur au montage du composant
+  onMounted(() => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+  user.value = JSON.parse(storedUser);
+}
+});
+
+  // Fonction de déconnexion
+  const logout = () => {
+  localStorage.removeItem('user');
+  user.value = null;
+  router.push('/login');
+};
 </script>
 
 <template>
@@ -23,7 +42,12 @@
 
     <div class="navbar-user">
       <div v-if="user">
-        {user.name}
+        <div>
+          {{user.firstname}}
+        </div>
+        <div>
+          <button @click="logout">Déconnexion</button>
+        </div>
       </div>
       <div v-else>
         <router-link to="/login">Connexion</router-link>

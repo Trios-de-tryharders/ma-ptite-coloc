@@ -23,13 +23,19 @@
           <h2>Register</h2>
           <form @submit.prevent="handleRegister">
             <div class="input-box">
-              <input type="text" placeholder="Username" v-model="registerUsername" required />
+              <input type="text" placeholder="Firstname" v-model="registerFirstname" required />
             </div>
             <div class="input-box">
-              <input type="email" placeholder="Email" v-model="registerEmail" required />
+              <input type="text" placeholder="Lastname" v-model="registerLastname" required />
+            </div>
+            <div class="input-box">
+              <input placeholder="Email" v-model="registerEmail" required />
             </div>
             <div class="input-box">
               <input type="password" placeholder="Password" v-model="registerPassword" required />
+            </div>
+            <div class="input-box">
+              <input type="number" placeholder="age" v-model="registerAge"/>
             </div>
             <button type="submit">Register</button>
             <p>
@@ -44,27 +50,76 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       isRegister: false,
       loginEmail: "",
       loginPassword: "",
-      registerUsername: "",
+      registerFirstname: "",
+      registerLastname: "",
       registerEmail: "",
       registerPassword: "",
+      registerAge: "",
     };
   },
   methods: {
     toggleForm() {
       this.isRegister = !this.isRegister;
     },
-    handleLogin() {
-      alert(`Logged in with email: ${this.loginEmail}`);
+    async handleLogin() {
+      const reponse = await fetch('http://10.111.9.33:3000/api/users/login',{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: this.loginEmail,
+          password: this.loginPassword
+        }),
+      })
+      const user = await reponse.json()
+      console.log(user)
+
+      if(reponse.ok){
+        localStorage.setItem('user', JSON.stringify(user))
+        this.$router.push('/')
+      }else{
+        console.error("Error:", user);
+      }
     },
-    handleRegister() {
-      alert(`Registered with email: ${this.registerEmail}`);
-    },
+    async handleRegister() {
+      try {
+        const response = await fetch('http://10.111.9.33:3000/api/users/register', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            firstname: this.registerFirstname,
+            lastname: this.registerLastname,
+            email: this.registerEmail,
+            password: this.registerPassword,
+            age: this.registerAge,
+          }),
+        });
+
+        const user = await response.json();
+        console.log(user);
+
+        if (response.ok) {
+          this.toggleForm();
+        } else {
+          console.error("Error:", user);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred during registration.");
+      }
+    }
   },
 };
 </script>
