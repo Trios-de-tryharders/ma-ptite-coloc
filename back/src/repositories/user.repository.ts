@@ -12,8 +12,8 @@ export class UserRepository {
   }
 
   create(user: userToCreateInput): UserEntity {
-    const newUser = this.userDB.create(user);
-    return newUser
+    const newUser = this.userDB.create({ ...user, isAdmin: user.isAdmin ?? false });
+    return newUser;
   }
 
   async update(id: number, userToUpdate: Partial<UserEntity>): Promise<void> {

@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsString, IsInt, Min, IsArray } from "class-validator";
+import { IsString, IsInt, Min, IsArray, IsBoolean } from "class-validator";
 import { UserEntity } from "../../databases/mysql/user.entity";
 import { ColocationEntity } from "../../databases/mysql/colocation.entity";
 
@@ -28,4 +28,8 @@ export class userToCreateInput {
   @Expose()
   @IsArray()
   ownedColocations: ColocationEntity[];
+
+  @Expose()
+  @IsBoolean()
+  isAdmin: boolean = false;
 }

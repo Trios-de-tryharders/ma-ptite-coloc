@@ -14,6 +14,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     const userToCreateDTO = plainToInstance(UserToCreateDTO, req.body, { excludeExtraneousValues: true });
 
     const dtoErrors = await validate(userToCreateDTO);
+    
     if (dtoErrors.length > 0) {
       console.log(dtoErrors);
       const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
@@ -21,7 +22,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
       throw new AppError(400, errors || "Invalid input");
     }
     
-    const user = await userService.registerUser(req.body);
+    const user = await userService.registerUser({ ...req.body, isAdmin: req.body.isAdmin ?? false });
     // appeler le logger service pour enregistrer QUI a créer un utilisateur (peut être un admin ou l'utilisateur lui même (?)  )
 
     const createdUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
@@ -171,7 +172,6 @@ export const getUserProfile = async (req: Request, res: Response, next: NextFunc
   
   try {
     const user = (req as any).decoded.user;
-    console.log(user)
     const userId = parseInt(user.id, 10);
     if (isNaN(userId)) {
       throw new AppError(400, "Invalid user ID");

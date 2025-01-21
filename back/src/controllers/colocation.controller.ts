@@ -5,6 +5,7 @@ import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { ColocationPresenter } from "../types/colocation/presenters";
 import AppError from "../utils/appError";
+import { UserPresenter } from "../types/user/presenters";
 
 const colocationService = new ColocationService();
 
@@ -35,7 +36,11 @@ export const registerColocation = async (req: Request, res: Response, next: Next
 export const getAllColocations = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const colocations = await colocationService.getAllColocations();
-    const colocationsPresenters = colocations.map(colocation => plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true }));
+    const colocationsPresenters = colocations.map(colocation => {
+      const colocationPresenter = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
+      colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      return colocationPresenter;
+    });
     res.status(200).json(colocationsPresenters);
   } catch (error) {
     next(error);
@@ -53,6 +58,7 @@ export const getColocationById = async (req: Request, res: Response, next: NextF
     }
 
     const colocationPresenter = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
+    colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
     res.status(200).json(colocationPresenter);
   } catch (error) {
     next(error);
@@ -111,6 +117,32 @@ export const replaceColocation = async (req: Request, res: Response, next: NextF
 
     const replacedColocation = await colocationService.replaceColocation(id, req.body);
     const colocationPresenter = plainToInstance(ColocationPresenter, replacedColocation, { excludeExtraneousValues: true });
+    res.status(200).json(colocationPresenter);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addRoommate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+    const colocationId = parseInt(req.params.id, 10);
+    const roommateId = parseInt(req.params.roommateId, 10);
+
+    const colocation = await colocationService.getColocationById(colocationId);
+
+    if (!colocation) {
+      throw new AppError(404, "Colocation not found");
+    }
+
+    if (colocation.ownerId !== userId && !user.isAdmin) {
+      throw new AppError(403, "You are not authorized to add a roommate to this colocation");
+    }
+
+    await colocationService.addRoommate(colocationId, roommateId);
+    const updatedColocation = await colocationService.getColocationById(colocationId);
+    const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
     res.status(200).json(colocationPresenter);
   } catch (error) {
     next(error);

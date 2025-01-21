@@ -21,6 +21,9 @@ export class UserEntity {
   @Column("int")
   age: number;
 
+  @Column({ default: false })
+  isAdmin: boolean;
+
   @OneToMany(() => ColocationEntity, colocation => colocation.owner)
   ownedColocations: ColocationEntity[];
 }

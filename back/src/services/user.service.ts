@@ -21,7 +21,7 @@ export class UserService {
     const password_hash = await bcrypt.hash(userToCreate.password, saltRounds);
 
     // ON CRÉE L'UTILISATEUR
-    const createdUser = this.userRepository.create({ ...userToCreate, password_hash });
+    const createdUser = this.userRepository.create({ ...userToCreate, password_hash, isAdmin: userToCreate.isAdmin ?? false });
 
     // ON SAUVEGARDE L'UTILISATEUR
     const savedUser = await this.userRepository.save(createdUser);

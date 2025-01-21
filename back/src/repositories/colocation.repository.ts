@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { ColocationEntity } from "../databases/mysql/colocation.entity";
 import { connectMySQLDB } from "../configs/databases/mysql.config";
 import { ColocationToCreateDTO, SearchColocationCriteriaDTO } from "../types/colocation/dtos";
+import { UserEntity } from "../databases/mysql/user.entity";
 
 export class ColocationRepository {
   private colocationDB: Repository<ColocationEntity>;
@@ -41,5 +42,9 @@ export class ColocationRepository {
 
   async replace(id: number, colocationToReplace: ColocationToCreateDTO): Promise<void> {
     await this.colocationDB.save({ ...colocationToReplace, id });
+  }
+
+  async findUserById(userId: number): Promise<UserEntity | null> {
+    return this.colocationDB.manager.findOne(UserEntity, { where: { id: userId } });
   }
 }

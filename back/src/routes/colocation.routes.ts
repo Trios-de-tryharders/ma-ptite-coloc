@@ -10,5 +10,6 @@ routes.get("/:id", checkJWT, colocationController.getColocationById);
 routes.delete("/:id", checkJWT, colocationController.deleteColocation);
 routes.patch("/:id", checkJWT, colocationController.updateColocation);
 routes.put("/:id", checkJWT, colocationController.replaceColocation);
+routes.post("/:id/addRoommate/:roommateId", checkJWT, colocationController.addRoommate);
 
 export default routes;

@@ -1,6 +1,6 @@
 import { Expose } from "class-transformer";
 import { UserEntity } from "../../databases/mysql/user.entity";
-import { IsString, IsInt, Min, IsOptional, IsArray } from "class-validator";
+import { IsString, IsInt, Min, IsOptional, IsArray, IsBoolean } from "class-validator";
 import { ColocationEntity } from "../../databases/mysql/colocation.entity";
 
 export class UserToCreateDTO {
@@ -29,6 +29,10 @@ export class UserToCreateDTO {
   @Expose()
   @IsArray()
   ownedColocations: ColocationEntity[];
+
+  @Expose()
+  @IsBoolean()
+  isAdmin: boolean = false;
 }
 
 export class UserToModifyDTO {
@@ -62,6 +66,11 @@ export class UserToModifyDTO {
   @IsOptional()
   @IsArray()
   ownedColocations?: ColocationEntity[];
+
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  isAdmin?: boolean;
 }
 
 export class SearchUserCriteriaDTO {
@@ -95,4 +104,9 @@ export class SearchUserCriteriaDTO {
   @IsArray()
   @Expose()
   ownedColocations?: ColocationEntity[];
+
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  isAdmin?: boolean;
 }
