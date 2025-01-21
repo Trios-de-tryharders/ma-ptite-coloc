@@ -17,15 +17,15 @@ export class ColocationRepository {
   }
 
   async findOneBy(criteria: SearchColocationCriteriaDTO): Promise<ColocationEntity | null> {
-    return this.colocationDB.findOne({ where: criteria, relations: ["roommates"] });
+    return this.colocationDB.findOne({ where: criteria, relations: ["roommates", "owner", "chief"] });
   }
 
   async findBy(criteria: SearchColocationCriteriaDTO): Promise<ColocationEntity[]> {
-    return this.colocationDB.find({ where: criteria, relations: ["roommates"] });
+    return this.colocationDB.find({ where: criteria, relations: ["roommates", "owner", "chief"] });
   }
 
   async findAll(): Promise<ColocationEntity[]> {
-    return this.colocationDB.find({ relations: ["roommates"] });
+    return this.colocationDB.find({ relations: ["roommates", "owner", "chief"] });
   }
 
   async delete(id: number): Promise<void> {

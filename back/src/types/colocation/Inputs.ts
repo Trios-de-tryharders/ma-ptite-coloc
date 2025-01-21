@@ -18,7 +18,7 @@ export class colocationToCreateInput {
 
   @Expose()
   @IsString()
-  ownerName: string;
+  name: string;
 
   @Expose()
   @IsString()
@@ -26,7 +26,7 @@ export class colocationToCreateInput {
 
   @Expose()
   @IsInt()
-  ownerId: UserEntity['id'];
+  owner: UserEntity;
 
   @Expose()
   @IsArray()

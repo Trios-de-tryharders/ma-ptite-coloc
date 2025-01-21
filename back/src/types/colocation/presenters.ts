@@ -21,15 +21,14 @@ export class ColocationPresenter {
 
   @Expose()
   @IsString()
-  ownerName: string;
+  name: string;
 
   @Expose()
   @IsString()
   description: string;
 
   @Expose()
-  @IsInt()
-  ownerId: number;
+  owner: UserPresenter;
 
   @Expose()
   @IsArray()

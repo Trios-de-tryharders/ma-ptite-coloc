@@ -122,4 +122,5 @@ export class UserService {
   async getUserProfile(userId: number): Promise<UserEntity | null> {
     return this.getUserById(userId);
   }
+
 }

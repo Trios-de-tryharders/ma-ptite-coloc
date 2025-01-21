@@ -17,7 +17,7 @@ export class ColocationToCreateDTO {
 
   @Expose()
   @IsString()
-  ownerName: string;
+  name: string;
 
   @Expose()
   @IsString()
@@ -25,7 +25,7 @@ export class ColocationToCreateDTO {
 
   @Expose()
   @IsInt()
-  ownerId: UserEntity['id'];
+  owner: UserEntity;
 }
 
 export class ColocationToModifyDTO {
@@ -47,7 +47,7 @@ export class ColocationToModifyDTO {
   @Expose()
   @IsOptional()
   @IsString()
-  ownerName?: string;
+  name?: string;
 
   @Expose()
   @IsOptional()
@@ -57,7 +57,7 @@ export class ColocationToModifyDTO {
   @Expose()
   @IsOptional()
   @IsInt()
-  ownerId?: UserEntity['id'];
+  owner?: UserEntity;
 
   @Expose()
   @IsOptional()
@@ -88,7 +88,7 @@ export class SearchColocationCriteriaDTO {
 
   @IsOptional()
   @IsString()
-  ownerName?: string;
+  name?: string;
 
   @IsOptional()
   @IsString()
@@ -96,7 +96,7 @@ export class SearchColocationCriteriaDTO {
 
   @IsOptional()
   @IsInt()
-  ownerId?: UserEntity['id'];
+  owner?: UserEntity;
 
   @IsOptional()
   @IsArray()

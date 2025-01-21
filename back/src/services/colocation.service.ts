@@ -31,7 +31,7 @@ export class ColocationService {
       throw new AppError(404, "Colocation not found");
     }
 
-    if (userId !== colocation.ownerId) {
+    if (userId !== colocation.owner.id) {
       throw new AppError(403, "You can't delete others colocation");
     }
 
@@ -56,7 +56,7 @@ export class ColocationService {
       colocationToUpdate.chief = chief;
     }
 
-    if (userId !== colocation.ownerId) {
+    if (userId !== colocation.owner.id) {
       throw new AppError(403, "You can't update others colocation");
     }
 

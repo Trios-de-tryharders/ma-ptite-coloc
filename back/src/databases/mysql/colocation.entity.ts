@@ -16,13 +16,10 @@ export class ColocationEntity {
   numberOfRooms: number;
 
   @Column({ length: 100 })
-  ownerName: string;
+  name: string;
 
   @Column("text")
   description: string;
-
-  @Column()
-  ownerId: number;
 
   @ManyToOne(() => UserEntity, user => user.ownedColocations)
   owner: UserEntity;

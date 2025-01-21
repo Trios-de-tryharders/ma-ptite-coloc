@@ -13,7 +13,7 @@ export const registerColocation = async (req: Request, res: Response, next: Next
   try {
     const user = (req as any).decoded.user;
     const userId = parseInt(user.id, 10);
-    req.body.ownerId = userId;
+    req.body.owner = userId;
 
     const colocationToCreateDTO = plainToInstance(ColocationToCreateDTO, req.body, { excludeExtraneousValues: true });
 
@@ -25,12 +25,16 @@ export const registerColocation = async (req: Request, res: Response, next: Next
     }
     
     const colocation = await colocationService.registerColocation(req.body);
+    console.log(colocation);
     const createdColocation = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
     if (colocation.roommates) {
       createdColocation.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
     }
     if (colocation.chief) {
       createdColocation.chief = plainToInstance(UserPresenter, colocation.chief, { excludeExtraneousValues: true });
+    }
+    if (colocation.owner) {
+      createdColocation.owner = plainToInstance(UserPresenter, colocation.owner, { excludeExtraneousValues: true });
     }
     res.status(201).json(createdColocation);
   } catch (error) {
@@ -46,6 +50,9 @@ export const getAllColocations = async (req: Request, res: Response, next: NextF
       colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
       if (colocation.chief) {
         colocationPresenter.chief = plainToInstance(UserPresenter, colocation.chief, { excludeExtraneousValues: true });
+      }
+      if (colocation.owner) {
+        colocationPresenter.owner = plainToInstance(UserPresenter, colocation.owner, { excludeExtraneousValues: true });
       }
       return colocationPresenter;
     });
@@ -69,6 +76,9 @@ export const getColocationById = async (req: Request, res: Response, next: NextF
     colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
     if (colocation.chief) {
       colocationPresenter.chief = plainToInstance(UserPresenter, colocation.chief, { excludeExtraneousValues: true });
+    }
+    if (colocation.owner) {
+      colocationPresenter.owner = plainToInstance(UserPresenter, colocation.owner, { excludeExtraneousValues: true });
     }
     res.status(200).json(colocationPresenter);
   } catch (error) {
@@ -119,6 +129,9 @@ export const updateColocation = async (req: Request, res: Response, next: NextFu
       if (updatedColocation.chief) {
         colocationPresenter.chief = plainToInstance(UserPresenter, updatedColocation.chief, { excludeExtraneousValues: true });
       }
+      if (updatedColocation.owner) {
+        colocationPresenter.owner = plainToInstance(UserPresenter, updatedColocation.owner, { excludeExtraneousValues: true });
+      }
       res.status(200).json(colocationPresenter);
     } else {
       res.status(404).json({ message: "Colocation not found" });
@@ -147,6 +160,9 @@ export const replaceColocation = async (req: Request, res: Response, next: NextF
       if (replacedColocation.chief) {
         colocationPresenter.chief = plainToInstance(UserPresenter, replacedColocation.chief, { excludeExtraneousValues: true });
       }
+      if (replacedColocation.owner) {
+        colocationPresenter.owner = plainToInstance(UserPresenter, replacedColocation.owner, { excludeExtraneousValues: true });
+      }
       res.status(200).json(colocationPresenter);
     } else {
       res.status(404).json({ message: "Colocation not found" });
@@ -169,7 +185,7 @@ export const addRoommate = async (req: Request, res: Response, next: NextFunctio
       throw new AppError(404, "Colocation not found");
     }
 
-    if (colocation.ownerId !== userId && !user.isAdmin) {
+    if (colocation.owner.id !== userId && !user.isAdmin) {
       throw new AppError(403, "You are not authorized to add a roommate to this colocation");
     }
 
@@ -182,6 +198,9 @@ export const addRoommate = async (req: Request, res: Response, next: NextFunctio
       colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
       if (updatedColocation.chief) {
         colocationPresenter.chief = plainToInstance(UserPresenter, updatedColocation.chief, { excludeExtraneousValues: true });
+      }
+      if (updatedColocation.owner) {
+        colocationPresenter.owner = plainToInstance(UserPresenter, updatedColocation.owner, { excludeExtraneousValues: true });
       }
       res.status(200).json(colocationPresenter);
     }
@@ -205,7 +224,7 @@ export const removeRoommate = async (req: Request, res: Response, next: NextFunc
       throw new AppError(404, "Colocation not found");
     }
 
-    if (colocation.ownerId !== userId && !user.isAdmin) {
+    if (colocation.owner.id !== userId && !user.isAdmin) {
       throw new AppError(403, "You are not authorized to remove a roommate from this colocation");
     }
 
@@ -216,6 +235,9 @@ export const removeRoommate = async (req: Request, res: Response, next: NextFunc
       colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
       if (updatedColocation.chief) {
         colocationPresenter.chief = plainToInstance(UserPresenter, updatedColocation.chief, { excludeExtraneousValues: true });
+      }
+      if (updatedColocation.owner) {
+        colocationPresenter.owner = plainToInstance(UserPresenter, updatedColocation.owner, { excludeExtraneousValues: true });
       }
       res.status(200).json(colocationPresenter);
     } else {
