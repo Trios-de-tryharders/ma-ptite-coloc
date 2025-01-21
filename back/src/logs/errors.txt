@@ -178,3 +178,31 @@ Not connected - 2025-01-21T17:58:49.840Z - POST /api/charges - 400 - date must b
 Not connected - 2025-01-21T18:17:34.531Z - GET /api/users - 401 - Failed to authenticate token
 Not connected - 2025-01-21T18:17:38.377Z - GET /api/users - 401 - Failed to authenticate token
 Not connected - 2025-01-21T18:17:51.334Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T18:36:20.866Z - POST /api/users/login - 401 - No password were found with this email
+Not connected - 2025-01-21T18:36:36.317Z - POST /api/users/login - 400 - Expected double-quoted property name in JSON at position 38 (line 3 column 1)
+Not connected - 2025-01-21T18:52:53.812Z - POST /api/users/register - 409 - User already exists
+Not connected - 2025-01-21T19:18:30.896Z - DELETE /api/charges/100 - 404 - Charge not found
+Not connected - 2025-01-21T19:32:14.967Z - PUT /api/charges/1 - 400 - type must be a string, amount must not be less than 0, amount must be a number conforming to the specified constraints, colocation must be an integer number, date must be a Date instance
+Not connected - 2025-01-21T19:32:22.699Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:33:52.646Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:34:39.837Z - PATCH /api/charges/1 - 400 - an unknown value was passed to the validate function
+Not connected - 2025-01-21T19:35:06.608Z - PATCH /api/charges/1 - 400 - an unknown value was passed to the validate function
+Not connected - 2025-01-21T19:35:17.388Z - PATCH /api/charges/1 - 400 - an unknown value was passed to the validate function
+Not connected - 2025-01-21T19:36:08.014Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:36:27.301Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:38:23.521Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:39:00.168Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:40:13.518Z - PATCH /api/charges/1 - 400 - date must be a Date instance
+Not connected - 2025-01-21T19:43:15.040Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:47:59.296Z - POST /api/colocations/register - 401 - No token provided
+Not connected - 2025-01-21T19:56:02.485Z - POST /api/users/login - 404 - No user found with this email
+Not connected - 2025-01-21T19:56:53.277Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:56:59.340Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:57:11.850Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:57:33.195Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:57:36.076Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:57:42.824Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:57:45.396Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:57:57.209Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:58:22.276Z - POST /api/colocations/register - 401 - Failed to authenticate token
+Not connected - 2025-01-21T19:58:29.841Z - GET /api/colocations - 401 - Failed to authenticate token
