@@ -4,11 +4,11 @@ import { checkJWT } from '../middlewares/security';
 
 const routes = Router();
 
-routes.post("/register", colocationController.registerColocation);
-routes.get("/", colocationController.getAllColocations);
-routes.get("/:id", colocationController.getColocationById);
-routes.delete("/:id", colocationController.deleteColocation);
-routes.patch("/:id", colocationController.updateColocation);
-routes.put("/:id", colocationController.replaceColocation);
+routes.post("/register", checkJWT, colocationController.registerColocation);
+routes.get("/", checkJWT ,colocationController.getAllColocations);
+routes.get("/:id", checkJWT, colocationController.getColocationById);
+routes.delete("/:id", checkJWT, colocationController.deleteColocation);
+routes.patch("/:id", checkJWT, colocationController.updateColocation);
+routes.put("/:id", checkJWT, colocationController.replaceColocation);
 
 export default routes;

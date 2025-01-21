@@ -110,7 +110,15 @@ export const checkConnection = async (req: Request, res: Response, next: NextFun
 
 export const deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const id = req.params.id;
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+
+    const id = parseInt(req.params.id, 10);
+
+    if(userId !== id) {
+      throw new AppError(403, "You can't delete others account");
+    }
+    
     res.status(204).send(await userService.deleteUser(id));
   } catch (error) {
     next(error); 

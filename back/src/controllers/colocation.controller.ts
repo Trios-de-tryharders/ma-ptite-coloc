@@ -10,6 +10,11 @@ const colocationService = new ColocationService();
 
 export const registerColocation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    const user = (req as any).decoded.user;
+    console.log(user);
+    const userId = parseInt(user.id, 10);
+    req.body.ownerId = userId;
+
     const colocationToCreateDTO = plainToInstance(ColocationToCreateDTO, req.body, { excludeExtraneousValues: true });
 
     const dtoErrors = await validate(colocationToCreateDTO);
@@ -56,8 +61,16 @@ export const getColocationById = async (req: Request, res: Response, next: NextF
 
 export const deleteColocation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const id = req.params.id;
-    await colocationService.deleteColocation(parseInt(id, 10));
+    const user = (req as any).decoded.user;
+    const userId = parseInt(user.id, 10);
+
+    const id = parseInt(req.params.id, 10);
+
+    if(userId !== id) {
+      throw new AppError(403, "You can't delete others colocation");
+    }
+
+    await colocationService.deleteColocation(id);
     res.status(204).send();
   } catch (error) {
     next(error);

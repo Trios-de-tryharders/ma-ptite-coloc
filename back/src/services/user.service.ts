@@ -67,14 +67,14 @@ export class UserService {
     return user;
   }
 
-  async deleteUser(id: string){
-    const user = await this.userRepository.findOneBy({ id: parseInt(id, 10)});
+  async deleteUser(id: number){
+    const user = await this.userRepository.findOneBy({ id: id });
 
     if (!user) {
       throw new AppError(404, "No user found with this id");
     }
 
-    await this.userRepository.delete(parseInt(id, 10));
+    await this.userRepository.delete(id);
 
     return "The user has been deleted"
   }
