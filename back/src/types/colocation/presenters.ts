@@ -1,5 +1,6 @@
 import { Expose } from "class-transformer";
-import { IsNumber, IsString, IsInt } from "class-validator";
+import { IsNumber, IsString, IsInt, IsArray } from "class-validator";
+import { UserPresenter } from "../user/presenters";
 
 export class ColocationPresenter {
   @Expose()
@@ -25,4 +26,12 @@ export class ColocationPresenter {
   @Expose()
   @IsString()
   description: string;
+
+  @Expose()
+  @IsInt()
+  ownerId: number;
+
+  @Expose()
+  @IsArray()
+  roommates: UserPresenter[];
 }

@@ -1,25 +1,34 @@
 import { Expose } from "class-transformer";
-import { IsString, IsInt, IsNumber } from "class-validator";
+import { IsString, IsInt, IsNumber, IsArray } from "class-validator";
 import { ColocationEntity } from "../../databases/mysql/colocation.entity";
+import { UserEntity } from "../../databases/mysql/user.entity";
 
 export class colocationToCreateInput {
-    @Expose()
-    @IsString()
-    location: ColocationEntity['location'];
+  @Expose()
+  @IsString()
+  location: ColocationEntity['location'];
 
-    @Expose()
-    @IsNumber()
-    area: number;
+  @Expose()
+  @IsNumber()
+  area: number;
 
-    @Expose()
-    @IsInt()
-    numberOfRooms: number;
+  @Expose()
+  @IsInt()
+  numberOfRooms: number;
 
-    @Expose()
-    @IsString()
-    ownerName: string;
+  @Expose()
+  @IsString()
+  ownerName: string;
 
-    @Expose()
-    @IsString()
-    description: string;
+  @Expose()
+  @IsString()
+  description: string;
+
+  @Expose()
+  @IsInt()
+  ownerId: UserEntity['id'];
+
+  @Expose()
+  @IsArray()
+  roommates: UserEntity[];
 }

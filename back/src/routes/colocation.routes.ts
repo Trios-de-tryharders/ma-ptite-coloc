@@ -7,5 +7,7 @@ routes.post("/register", colocationController.registerColocation);
 routes.get("/", colocationController.getAllColocations);
 routes.get("/:id", colocationController.getColocationById);
 routes.delete("/:id", colocationController.deleteColocation);
+routes.patch("/:id", colocationController.updateColocation);
+routes.put("/:id", colocationController.replaceColocation);
 
 export default routes;

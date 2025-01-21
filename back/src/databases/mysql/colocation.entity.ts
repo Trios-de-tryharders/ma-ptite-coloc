@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { UserEntity } from "./user.entity";
 
 @Entity("colocations")
 export class ColocationEntity {
@@ -19,4 +20,14 @@ export class ColocationEntity {
 
   @Column("text")
   description: string;
+
+  @Column()
+  ownerId: number;
+
+  @ManyToOne(() => UserEntity, user => user.ownedColocations)
+  owner: UserEntity;
+
+  @ManyToMany(() => UserEntity)
+  @JoinTable()
+  roommates: UserEntity[];
 }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ColocationService } from "../services/colocation.service";
-import { ColocationToCreateDTO } from "../types/colocation/dtos";
+import { ColocationToCreateDTO, ColocationToModifyDTO } from "../types/colocation/dtos";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { ColocationPresenter } from "../types/colocation/presenters";
@@ -59,6 +59,46 @@ export const deleteColocation = async (req: Request, res: Response, next: NextFu
     const id = req.params.id;
     await colocationService.deleteColocation(parseInt(id, 10));
     res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateColocation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const colocationToUpdateDTO = plainToInstance(ColocationToModifyDTO, req.body, { excludeExtraneousValues: true });
+
+    const dtoErrors = await validate(colocationToUpdateDTO);
+    if (dtoErrors.length > 0) {
+      const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
+      const errors = constraints.map(constraint => constraint || "").join(", ");
+      throw new AppError(400, errors || "Invalid input");
+    }
+
+    const updatedColocation = await colocationService.updateColocation(id, req.body);
+    const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
+    res.status(200).json(colocationPresenter);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const replaceColocation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const colocationToReplaceDTO = plainToInstance(ColocationToCreateDTO, req.body, { excludeExtraneousValues: true });
+
+    const dtoErrors = await validate(colocationToReplaceDTO);
+    if (dtoErrors.length > 0) {
+      const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
+      const errors = constraints.map(constraint => constraint || "").join(", ");
+      throw new AppError(400, errors || "Invalid input");
+    }
+
+    const replacedColocation = await colocationService.replaceColocation(id, req.body);
+    const colocationPresenter = plainToInstance(ColocationPresenter, replacedColocation, { excludeExtraneousValues: true });
+    res.status(200).json(colocationPresenter);
   } catch (error) {
     next(error);
   }
