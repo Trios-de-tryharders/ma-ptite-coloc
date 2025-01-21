@@ -167,7 +167,7 @@ const addColoc = async (event) => {
                 <p>{{ coloc.description }}</p>
               </div>
               <div>
-                <button @click="deleteColoc">Supprimer</button>
+                <button @click="() => deleteColoc(coloc.id, coloc.ownerId)">Supprimer</button>
               </div>
             </div>
           </li>
