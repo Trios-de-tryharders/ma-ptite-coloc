@@ -1,17 +1,17 @@
 import { Expose } from "class-transformer";
-import { IsString, IsInt, Min } from "class-validator";
+import { IsString, IsInt, Min, IsArray } from "class-validator";
 import { UserEntity } from "../../databases/mysql/user.entity";
+import { ColocationEntity } from "../../databases/mysql/colocation.entity";
 
 export class userToCreateInput {
   @Expose()
   @IsString()
   firstname: UserEntity['firstname'];
 
-  // à vous de jouer
   @Expose()
   @IsString()
   lastname: string;
-  
+
   @Expose()
   @IsString()
   email: string;
@@ -20,7 +20,12 @@ export class userToCreateInput {
   @IsString()
   password_hash: UserEntity['password_hash'];
 
+  @Expose()
   @IsInt()
   @Min(18)
   age: number;
+
+  @Expose()
+  @IsArray()
+  ownedColocations: ColocationEntity[];
 }

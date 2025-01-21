@@ -1,6 +1,7 @@
 import { Expose } from "class-transformer";
-import { IsNumber, IsString, IsInt, Min } from "class-validator";
+import { IsNumber, IsString, IsInt, Min, IsArray } from "class-validator";
 import { UserEntity } from "../../databases/mysql/user.entity";
+import { ColocationPresenter } from "../colocation/presenters";
 
 export class UserPresenter {
   @Expose()
@@ -11,12 +12,20 @@ export class UserPresenter {
   @IsString()
   firstname: UserEntity['firstname'];
 
-  // à vous de jouer
+  @Expose()
+  @IsString()
   lastname: string;
-  email: string;
-  isActive: boolean;
 
+  @Expose()
+  @IsString()
+  email: string;
+
+  @Expose()
   @IsInt()
   @Min(18)
   age: number;
+
+  @Expose()
+  @IsArray()
+  ownedColocations: ColocationPresenter[];
 }
