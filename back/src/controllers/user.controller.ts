@@ -17,7 +17,6 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     const dtoErrors = await validate(userToCreateDTO);
 
     if (dtoErrors.length > 0) {
-      console.log(dtoErrors);
       const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
       const errors = constraints.map(constraint => constraint || "").join(", ");
       throw new AppError(400, errors || "Invalid input");

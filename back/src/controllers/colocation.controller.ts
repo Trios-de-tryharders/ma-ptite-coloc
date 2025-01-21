@@ -12,7 +12,6 @@ const colocationService = new ColocationService();
 export const registerColocation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const user = (req as any).decoded.user;
-    console.log(user);
     const userId = parseInt(user.id, 10);
     req.body.ownerId = userId;
 
@@ -27,7 +26,12 @@ export const registerColocation = async (req: Request, res: Response, next: Next
     
     const colocation = await colocationService.registerColocation(req.body);
     const createdColocation = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
-    createdColocation.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+    if (colocation.roommates) {
+      createdColocation.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+    }
+    if (colocation.chief) {
+      createdColocation.chief = plainToInstance(UserPresenter, colocation.chief, { excludeExtraneousValues: true });
+    }
     res.status(201).json(createdColocation);
   } catch (error) {
     next(error);
@@ -40,6 +44,9 @@ export const getAllColocations = async (req: Request, res: Response, next: NextF
     const colocationsPresenters = colocations.map(colocation => {
       const colocationPresenter = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
       colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      if (colocation.chief) {
+        colocationPresenter.chief = plainToInstance(UserPresenter, colocation.chief, { excludeExtraneousValues: true });
+      }
       return colocationPresenter;
     });
     res.status(200).json(colocationsPresenters);
@@ -60,6 +67,9 @@ export const getColocationById = async (req: Request, res: Response, next: NextF
 
     const colocationPresenter = plainToInstance(ColocationPresenter, colocation, { excludeExtraneousValues: true });
     colocationPresenter.roommates = colocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+    if (colocation.chief) {
+      colocationPresenter.chief = plainToInstance(UserPresenter, colocation.chief, { excludeExtraneousValues: true });
+    }
     res.status(200).json(colocationPresenter);
   } catch (error) {
     next(error);
@@ -85,6 +95,13 @@ export const updateColocation = async (req: Request, res: Response, next: NextFu
     const user = (req as any).decoded.user;
     const userId = parseInt(user.id, 10);
 
+    const chiefId = req.body.chiefId || null;
+
+    if (chiefId) {
+      req.body.chiefId = parseInt(chiefId, 10);
+      delete req.body.chiefId;
+    }
+
     const id = parseInt(req.params.id, 10);
     const colocationToUpdateDTO = plainToInstance(ColocationToModifyDTO, req.body, { excludeExtraneousValues: true });
 
@@ -95,10 +112,13 @@ export const updateColocation = async (req: Request, res: Response, next: NextFu
       throw new AppError(400, errors || "Invalid input");
     }
 
-    const updatedColocation = await colocationService.updateColocation(id, req.body, userId);
+    const updatedColocation = await colocationService.updateColocation(id, req.body, userId, chiefId);
     const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
     if (updatedColocation) {
       colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      if (updatedColocation.chief) {
+        colocationPresenter.chief = plainToInstance(UserPresenter, updatedColocation.chief, { excludeExtraneousValues: true });
+      }
       res.status(200).json(colocationPresenter);
     } else {
       res.status(404).json({ message: "Colocation not found" });
@@ -124,6 +144,9 @@ export const replaceColocation = async (req: Request, res: Response, next: NextF
     const colocationPresenter = plainToInstance(ColocationPresenter, replacedColocation, { excludeExtraneousValues: true });
     if (replacedColocation) {
       colocationPresenter.roommates = replacedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      if (replacedColocation.chief) {
+        colocationPresenter.chief = plainToInstance(UserPresenter, replacedColocation.chief, { excludeExtraneousValues: true });
+      }
       res.status(200).json(colocationPresenter);
     } else {
       res.status(404).json({ message: "Colocation not found" });
@@ -157,6 +180,9 @@ export const addRoommate = async (req: Request, res: Response, next: NextFunctio
       res.send(404).json({ message: "Colocation not found" });
     } else {
       colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      if (updatedColocation.chief) {
+        colocationPresenter.chief = plainToInstance(UserPresenter, updatedColocation.chief, { excludeExtraneousValues: true });
+      }
       res.status(200).json(colocationPresenter);
     }
     
@@ -171,8 +197,7 @@ export const removeRoommate = async (req: Request, res: Response, next: NextFunc
     const userId = parseInt(user.id, 10);
     const colocationId = parseInt(req.params.id, 10);
     const roommateId = parseInt(req.params.roommateId);
-    console.log(req.params.roommateId)
-    console.log(roommateId);
+
 
     const colocation = await colocationService.getColocationById(colocationId);
 
@@ -189,6 +214,9 @@ export const removeRoommate = async (req: Request, res: Response, next: NextFunc
     if (updatedColocation) {
       const colocationPresenter = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
       colocationPresenter.roommates = updatedColocation.roommates.map(roommate => plainToInstance(UserPresenter, roommate, { excludeExtraneousValues: true }));
+      if (updatedColocation.chief) {
+        colocationPresenter.chief = plainToInstance(UserPresenter, updatedColocation.chief, { excludeExtraneousValues: true });
+      }
       res.status(200).json(colocationPresenter);
     } else {
       res.status(404).json({ message: "Colocation not found" });

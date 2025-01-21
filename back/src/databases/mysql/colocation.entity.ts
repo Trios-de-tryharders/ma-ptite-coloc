@@ -30,4 +30,7 @@ export class ColocationEntity {
   @ManyToMany(() => UserEntity)
   @JoinTable()
   roommates: UserEntity[];
+
+  @ManyToOne(() => UserEntity, { nullable: true })
+  chief?: UserEntity;
 }

@@ -26,11 +26,6 @@ export class ColocationToCreateDTO {
   @Expose()
   @IsInt()
   ownerId: UserEntity['id'];
-
-  @Expose()
-  @IsArray()
-  @IsOptional()
-  roommates: UserEntity[];
 }
 
 export class ColocationToModifyDTO {
@@ -68,6 +63,10 @@ export class ColocationToModifyDTO {
   @IsOptional()
   @IsArray()
   roommates?: UserEntity[];
+
+  @Expose()
+  @IsOptional()
+  chief?: UserEntity;
 }
 
 export class SearchColocationCriteriaDTO {

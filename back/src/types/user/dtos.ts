@@ -31,6 +31,7 @@ export class UserToCreateDTO {
   ownedColocations: ColocationEntity[];
 
   @Expose()
+  @IsOptional()
   @IsBoolean()
   isAdmin: boolean = false;
 }

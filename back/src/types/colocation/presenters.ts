@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsNumber, IsString, IsInt, IsArray } from "class-validator";
+import { IsNumber, IsString, IsInt, IsArray, IsOptional } from "class-validator";
 import { UserPresenter } from "../user/presenters";
 
 export class ColocationPresenter {
@@ -34,4 +34,8 @@ export class ColocationPresenter {
   @Expose()
   @IsArray()
   roommates: UserPresenter[];
+
+  @Expose()
+  @IsOptional()
+  chief?: UserPresenter;
 }

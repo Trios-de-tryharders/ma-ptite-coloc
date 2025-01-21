@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsString, IsInt, IsNumber, IsArray } from "class-validator";
+import { IsString, IsInt, IsNumber, IsArray, IsOptional } from "class-validator";
 import { ColocationEntity } from "../../databases/mysql/colocation.entity";
 import { UserEntity } from "../../databases/mysql/user.entity";
 
@@ -31,4 +31,8 @@ export class colocationToCreateInput {
   @Expose()
   @IsArray()
   roommates: UserEntity[];
+
+  @Expose()
+  @IsOptional()
+  chief?: UserEntity;
 }

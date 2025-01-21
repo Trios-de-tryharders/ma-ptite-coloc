@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { checkJWT, checkJWTSecret } from '../../middlewares/security';
+import { checkJWT, checkJWTSecret } from '../middlewares/security';
 
-import * as userController from "../../controllers/user.controller";
+import * as userController from "../controllers/user.controller";
 
 const routes = Router();
 
