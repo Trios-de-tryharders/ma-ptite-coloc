@@ -21,7 +21,7 @@ export class UserService {
     const password_hash = await bcrypt.hash(userToCreate.password, saltRounds);
 
     // ON CRÉE L'UTILISATEUR
-    const createdUser = this.userRepository.create({ ...userToCreate, password_hash, isAdmin: userToCreate.isAdmin ?? false });
+    const createdUser = this.userRepository.create({ ...userToCreate, password_hash });
 
     // ON SAUVEGARDE L'UTILISATEUR
     const savedUser = await this.userRepository.save(createdUser);
@@ -115,11 +115,22 @@ export class UserService {
       throw new AppError(403, "You can't update others user");
     }
 
+    if(userToUpdate.isAdmin && !user.isAdmin) {
+      throw new AppError(400, "Failed updating the user");
+    }
+
+    if (userToUpdate.email) {
+      const userEmail = await this.userRepository.findOneBy({email: userToUpdate.email});
+      if (userEmail) {
+        throw new AppError(400, "Failed updating the user");
+      }
+    }
+
     await this.userRepository.update(id, userToUpdate);
     return this.getUserById(id);
   }
 
-  async replaceUser(id: number, userToReplace: UserToCreateDTO, userId: number): Promise<UserEntity | null> {
+  async replaceUser(id: number, userToReplace: UserToReplaceDTO, userId: number): Promise<UserEntity | null> {
     const user = await this.getUserById(id);
 
     if (!user) {
@@ -128,6 +139,17 @@ export class UserService {
 
     if(userId !== user.id) {
       throw new AppError(403, "You can't update others user");
+    }
+
+    if(userToReplace.isAdmin && !user.isAdmin) {
+      throw new AppError(400, "Failed updating the user");
+    }
+
+    if (userToReplace.email !== user.email) {
+      const userEmail = await this.userRepository.findOneBy({email: userToReplace.email});
+      if (userEmail) {
+        throw new AppError(400, "Failed updating the user");
+      }
     }
 
     await this.userRepository.replace(id, userToReplace);

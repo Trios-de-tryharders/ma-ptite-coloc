@@ -12,7 +12,7 @@ export class UserRepository {
   }
 
   create(user: userToCreateInput): UserEntity {
-    const newUser = this.userDB.create({ ...user, isAdmin: user.isAdmin ?? false });
+    const newUser = this.userDB.create(user);
     return newUser;
   }
 

@@ -27,14 +27,13 @@
  *                 type: integer
  *                 minimum: 18
  *                 default: 18
- *               isAdmin:
- *                 type: boolean
- *                 default: false
  *     responses:
  *       201:
  *         description: Utilisateur créé avec succès
  *       400:
  *         description: Entrée invalide
+ *       409:
+ *         description: Utilisateur déjà existant
  * /api/users/login:
  *   post:
  *     summary: Connexion utilisateur
@@ -86,10 +85,6 @@
  *         name: isActive
  *         schema:
  *           type: boolean
- *       - in: query
- *         name: isAdmin
- *         schema:
- *           type: boolean
  *     responses:
  *       200:
  *         description: Liste des utilisateurs
@@ -102,6 +97,8 @@
  *     responses:
  *       200:
  *         description: Profil utilisateur
+ *       400:
+ *         description: ID utilisateur invalide
  *       404:
  *         description: Utilisateur non trouvé
  * /api/users/refresh:
@@ -124,8 +121,12 @@
  *     responses:
  *       204:
  *         description: Utilisateur supprimé avec succès
+ *       400:
+ *         description: Vous ne pouvez pas supprimer un autre utilisateur
  *       403:
  *         description: Interdit
+ *       404:
+ *         description: Utilisateur non trouvé
  *   patch:
  *     summary: Mettre à jour partiellement un utilisateur
  *     tags: [Users]
@@ -162,6 +163,8 @@
  *         description: Utilisateur mis à jour avec succès
  *       400:
  *         description: Entrée invalide
+ *       403:
+ *         description: Vous ne pouvez pas mettre à jour un autre utilisateur
  *       404:
  *         description: Utilisateur non trouvé
  *   put:
@@ -203,6 +206,8 @@
  *         description: Utilisateur remplacé avec succès
  *       400:
  *         description: Entrée invalide
+ *       403:
+ *         description: Vous ne pouvez pas mettre à jour un autre utilisateur
  *       404:
  *         description: Utilisateur non trouvé
  */

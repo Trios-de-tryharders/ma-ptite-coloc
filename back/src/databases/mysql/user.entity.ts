@@ -23,7 +23,7 @@ export class UserEntity {
   age: number;
 
   @Column({ default: false })
-  isAdmin: boolean;
+  isAdmin?: boolean;
 
   @Column("boolean", { default: true })
   isActive: boolean;

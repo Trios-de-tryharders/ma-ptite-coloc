@@ -124,3 +124,4 @@
 2025-01-24T15:55:08.835Z - USER :4; EMAIL: string; ACTION: "login"
 2025-01-24T16:50:18.042Z - USER :4; EMAIL: string; ACTION: "login"
 2025-01-24T16:52:25.414Z - USER :4; EMAIL: string; ACTION: "login"
+2025-01-24T17:25:14.952Z - USER :5; EMAIL: jean.dupont@example.com; ACTION: "create"

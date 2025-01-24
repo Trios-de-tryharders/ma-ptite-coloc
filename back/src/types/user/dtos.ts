@@ -25,12 +25,9 @@ export class UserToCreateDTO {
   @IsInt()
   @Min(18)
   age: number;
-
-  @Expose()
-  @IsOptional()
-  @IsBoolean()
-  isAdmin: boolean = false;
 }
+
+
 
 export class UserToModifyDTO {
   @Expose()
@@ -116,11 +113,6 @@ export class SearchUserCriteriaDTO {
   @Expose()
   @IsArray()
   distributions?: DistributionEntity[];
-
-  @Expose()
-  @IsOptional()
-  @IsBoolean()
-  isAdmin?: boolean;
 }
 
 export class UserToReplaceDTO {
@@ -144,16 +136,6 @@ export class UserToReplaceDTO {
   @IsInt()
   @Min(18)
   age: number;
-
-  @IsOptional()
-  @IsArray()
-  @Expose()
-  ownedColocations?: ColocationEntity[];
-
-  @IsOptional()
-  @Expose()
-  @IsArray()
-  distributions?: DistributionEntity[];
 
   @Expose()
   @IsOptional()

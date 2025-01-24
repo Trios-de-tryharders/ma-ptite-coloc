@@ -25,8 +25,4 @@ export class userToCreateInput {
   @IsInt()
   @Min(18)
   age: number;
-
-  @Expose()
-  @IsBoolean()
-  isAdmin: boolean = false;
 }
