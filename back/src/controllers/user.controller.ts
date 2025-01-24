@@ -7,6 +7,7 @@ import { UserPresenter } from "../types/user/presenters";
 import AppError from "../utils/appError";
 import * as jwtService from "../services/jwtService";
 import { writeLog } from "../utils/logHandler";
+import { sendEmail } from "../services/emailService";
 
 const userService = new UserService();
 
@@ -25,6 +26,8 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     const user = await userService.registerUser({ ...req.body, isAdmin: req.body.isAdmin ?? false });
 
     const createdUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+
+    sendEmail(createdUser.email, 'Bienvenue sur notre plateforme', 'Votre compte a bien été créé');
 
     writeLog(`USER :${createdUser.id}; EMAIL: ${createdUser.email}; ACTION: "create"`);
 
@@ -115,6 +118,8 @@ export const checkConnection = async (req: Request, res: Response, next: NextFun
     const secret = await jwtService.signJWTSecret(userPresenter);
 
     writeLog(`USER :${userPresenter.id}; EMAIL: ${userPresenter.email}; ACTION: "login"`);
+
+    sendEmail(userPresenter.email, 'Une connexion à été initié', '');
 
     res.status(200).json({userPresenter, token: token, secret: secret}); // à vous de créer une class pour gérer les success
   } catch (error) {
