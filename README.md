@@ -65,7 +65,7 @@ JWT_SECRET=<VOTRE_SECRET>
 
 ### Lancez le serveur :
 
-npm run start:dev
+npm run dev
 
 ## Documentation Swagger
 
@@ -96,14 +96,6 @@ src/
 
 ## Scripts NPM
 
-npm start: Démarrer l'application en mode production.
-
-npm run start:dev: Démarrer l'application en mode développement avec rechargement automatique.
+npm run dev Démarrer l'application en mode développement avec rechargement automatique.
 
 npm run build: Compiler le projet TypeScript en JavaScript.
-
-Tests
-
-Pour exécuter les tests (s'il y en a) :
-
-npm test
