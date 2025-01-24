@@ -82,14 +82,16 @@ export class UserService {
       throw new AppError(400, "You can't delete a user that owns a colocation, you must first delete the colocation(s)");
     }
 
-
     if (user.colocations) {
       throw new AppError(400, "You can't delete a user that is in a colocation, you must first leave the colocation(s)");
     }
 
-    await this.userRepository.delete(id);
 
-    return "The user has been deleted"
+    user.isActive = false;
+
+    await this.userRepository.save(user);
+
+    return "The user has been desactivated"
   }
 
   async updateColocation(id: number, colocationToUpdate: Partial<UserEntity>): Promise<UserEntity | null> {
