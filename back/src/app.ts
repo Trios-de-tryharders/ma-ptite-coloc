@@ -6,6 +6,7 @@ import colocationRoutes from "./routes/colocation.routes";
 import errorHandler from "./middlewares/errorHandler";
 import logger from "./middlewares/logger";
 import chargeRoute from "./routes/charge.routes"
+import distributionRoutes from "./routes/distribution.routes";
 const app = express();
 
 // Middlewares globaux
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes); // Routes pour les utilisateurs
 app.use("/api/colocations", colocationRoutes); // Routes pour les colocations
 app.use("/api/charges", chargeRoute); // Routes pour les colocations
+app.use("/api/distributions", distributionRoutes); // Routes for distributions
 
 // Middleware de gestion des erreurs (à vous de le personnaliser pour qu'il soit réutilisable, pensez aux classes d'erreurs)
 app.use(errorHandler);
