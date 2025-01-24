@@ -24,8 +24,7 @@ export class ColocationEntity {
   @ManyToOne(() => UserEntity, user => user.ownedColocations)
   owner: UserEntity;
 
-  @ManyToMany(() => UserEntity)
-  @JoinTable()
+  @ManyToMany(() => UserEntity, user => user.colocations)
   roommates: UserEntity[];
 
   @ManyToOne(() => UserEntity, { nullable: true })

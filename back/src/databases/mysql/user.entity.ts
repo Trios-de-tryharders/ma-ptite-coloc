@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { ColocationEntity } from "./colocation.entity";
+import { DistributionEntity } from "./distribution.entity";
 
 @Entity("users")
 export class UserEntity {
@@ -26,4 +27,11 @@ export class UserEntity {
 
   @OneToMany(() => ColocationEntity, colocation => colocation.owner)
   ownedColocations: ColocationEntity[];
+
+  @ManyToMany(() => ColocationEntity, colocation => colocation.roommates)
+  @JoinTable()
+  colocations: ColocationEntity[];
+
+  @OneToMany(() => DistributionEntity, distribution => distribution.user)
+  distributions: DistributionEntity[];
 }

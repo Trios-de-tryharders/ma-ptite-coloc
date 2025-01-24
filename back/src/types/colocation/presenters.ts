@@ -38,3 +38,13 @@ export class ColocationPresenter {
   @IsOptional()
   chief?: UserPresenter;
 }
+
+export class ChargeColocationPresenter {
+  @Expose()
+  @IsNumber()
+  id: number;
+
+  @Expose()
+  @IsString()
+  name: string;
+}

@@ -1,6 +1,6 @@
 import { UserEntity } from "../databases/mysql/user.entity";
 import { UserRepository } from "../repositories/user.repository";
-import { SearchUserCriteriaDTO, UserToCreateDTO } from "../types/user/dtos";
+import { SearchUserCriteriaDTO, UserToCreateDTO, UserToReplaceDTO } from "../types/user/dtos";
 import { sendEmail } from "./emailService";
 import AppError from "../utils/appError";
 import * as bcrypt from 'bcrypt';
@@ -56,22 +56,35 @@ export class UserService {
     const user = await this.userRepository.findOneBy({email});
 
     if (!user) {
-      throw new AppError(404, "No user found with this email");
+      throw new AppError(404, "No user found this email/password");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
     if (!isPasswordValid) {
-      throw new AppError(401, "No password were found with this email");
+      throw new AppError(401, "No user found with this email/password");
     }
     return user;
   }
 
-  async deleteUser(id: number){
+  async deleteUser(id: number, userId: number): Promise<string> {
     const user = await this.userRepository.findOneBy({ id: id });
 
     if (!user) {
       throw new AppError(404, "No user found with this id");
+    }
+
+    if (user.id !== userId && !user.isAdmin) {
+      throw new AppError(400, "You cannot delete another user's account");
+    }
+
+    if (user.ownedColocations) {
+      throw new AppError(400, "You can't delete a user that owns a colocation, you must first delete the colocation(s)");
+    }
+
+
+    if (user.colocations) {
+      throw new AppError(400, "You can't delete a user that is in a colocation, you must first leave the colocation(s)");
     }
 
     await this.userRepository.delete(id);
@@ -84,7 +97,7 @@ export class UserService {
     return this.getUserById(id);
   }
 
-  async replaceColocation(id: number, colocationToReplace: UserToCreateDTO): Promise<UserEntity | null> {
+  async replaceColocation(id: number, colocationToReplace: UserToReplaceDTO): Promise<UserEntity | null> {
     await this.userRepository.replace(id, colocationToReplace);
     return this.getUserBy({id});
   }

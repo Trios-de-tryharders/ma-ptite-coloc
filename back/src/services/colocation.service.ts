@@ -83,11 +83,19 @@ export class ColocationService {
       throw new AppError(404, "Roommate not found");
     }
 
+    if (colocation.roommates.find(roommate => roommate.id === roommateId)) {
+      throw new AppError(400, "You cannot add a roommate thas is already in a colocation")
+    }
+
+    
+    console.log('Colation result:', colocation);
+    console.log('Roommate result:',roommate);
     if (colocation.roommates.some(r => r.id === roommateId)) {
       throw new AppError(400, "Roommate already in the colocation");
     }
 
     colocation.roommates.push(roommate);
+
     await this.colocationRepository.save(colocation);
     return colocation;
   }

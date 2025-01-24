@@ -21,6 +21,7 @@ export class ChargeService {
       throw new AppError(404, "Colocation not found");
     }
     
+    chargeData.date = new Date(chargeData.date);
     const charge = this.chargeRepository.create(chargeData);
 
     return this.chargeRepository.save(charge);
@@ -45,11 +46,17 @@ export class ChargeService {
 
   async updateCharge(id: number, chargeData: Partial<ChargeEntity>): Promise<void> {
     await this.doesChargeExist(id);    
+    if (chargeData.date) {
+      chargeData.date = new Date(chargeData.date);
+    }
     await this.chargeRepository.update(id, chargeData);
   }
 
   async patchCharge(id: number, chargeData: Partial<ChargeEntity>): Promise<void> {
     await this.doesChargeExist(id);
+    if (chargeData.date) {
+      chargeData.date = new Date(chargeData.date);
+    }
     await this.chargeRepository.update(id, chargeData);
   }
 
