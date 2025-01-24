@@ -8,7 +8,7 @@ const SECRET_KEY = process.env.JWT_SECRET || 'JWT_SECRET';
 const SECRET_KEY_REFRESH = process.env.JWT_REFRESH_SECRET || 'JWT_REFRESH_SECRET';
 
 export const signJWT = async (user: any): Promise<string> => {
-    const expiresIn = 60 * 15;
+    const expiresIn = 60 * 15 * 60;
     return jwt.sign({
         user: user
     },
