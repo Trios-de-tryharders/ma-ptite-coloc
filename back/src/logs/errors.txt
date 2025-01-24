@@ -212,3 +212,106 @@ Not connected - 2025-01-21T20:17:23.018Z - GET /api/colocations - 401 - Failed t
 18 - 2025-01-21T20:21:56.915Z - DELETE /api/colocations/8 - 404 - Colocation not found
 18 - 2025-01-21T20:22:03.048Z - DELETE /api/colocations/21 - 404 - Colocation not found
 Not connected - 2025-01-21T20:34:33.499Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-22T13:13:32.240Z - GET /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-22T13:13:44.368Z - GET /api/charges - 400 - date must be a Date instance
+Not connected - 2025-01-22T13:15:21.311Z - POST /api/charges - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`charges`, CONSTRAINT `FK_b1a9995d011f6d73b6068169896` FOREIGN KEY (`colocationId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+Not connected - 2025-01-22T13:15:39.063Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-22T13:20:24.210Z - POST /api/distributions - 500 - Cannot perform update query because update values are not defined. Call "qb.set(...)" method to specify updated values.
+Not connected - 2025-01-22T17:03:03.757Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'push')
+Not connected - 2025-01-22T17:04:23.235Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'push')
+Not connected - 2025-01-22T17:04:43.965Z - POST /api/distributions - 500 - Cannot query across one-to-many for property distributions
+Not connected - 2025-01-22T17:06:37.311Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'push')
+Not connected - 2025-01-22T17:49:02.415Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-22T17:49:34.715Z - POST /api/colocations/9/addRoommate/15 - 401 - Failed to authenticate token
+18 - 2025-01-22T17:49:42.513Z - POST /api/colocations/9/addRoommate/15 - 404 - Colocation not found
+Not connected - 2025-01-22T18:02:24.299Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'roommates')
+Not connected - 2025-01-22T18:03:13.105Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'find')
+Not connected - 2025-01-22T18:03:54.379Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'find')
+Not connected - 2025-01-22T18:04:15.701Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'find')
+Not connected - 2025-01-22T18:04:57.337Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'find')
+Not connected - 2025-01-22T18:06:04.330Z - POST /api/distributions - 400 - User is not in the colocation
+Not connected - 2025-01-22T18:06:36.270Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-22T18:07:33.364Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-22T18:07:38.655Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-22T18:08:26.283Z - POST /api/distributions - 400 - User is not in the colocation
+Not connected - 2025-01-22T18:09:25.285Z - POST /api/distributions - 400 - User is not in the colocation
+Not connected - 2025-01-22T18:10:23.696Z - POST /api/distributions - 400 - User is not in the colocation
+Not connected - 2025-01-22T18:10:50.525Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'find')
+Not connected - 2025-01-22T18:13:01.085Z - POST /api/distributions - 500 - Property "distributions" was not found in "ColocationEntity". Make sure your query is correct.
+Not connected - 2025-01-22T18:14:43.628Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'user')
+Not connected - 2025-01-22T18:15:11.870Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'user')
+Not connected - 2025-01-22T18:15:52.744Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'user')
+Not connected - 2025-01-22T18:16:24.292Z - POST /api/distributions - 500 - Cannot read properties of undefined (reading 'user')
+18 - 2025-01-22T18:17:47.170Z - POST /api/distributions - 400 - You can't add a distribution to the payer if you are not apart of the colocation
+Not connected - 2025-01-22T19:03:18.975Z - GET /api/distributions - 401 - No token provided
+Not connected - 2025-01-22T19:03:48.065Z - DELETE /api/users/15 - 401 - Failed to authenticate token
+18 - 2025-01-22T19:03:55.513Z - DELETE /api/users/15 - 403 - You can't delete others account
+18 - 2025-01-22T19:04:48.985Z - DELETE /api/users/16 - 403 - You can't delete others account
+16 - 2025-01-22T19:04:54.257Z - DELETE /api/users/16 - 500 - ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`maptitecoloc`.`distributions`, CONSTRAINT `FK_a358d124826f135396e9c616c12` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+16 - 2025-01-22T19:11:04.447Z - DELETE /api/users/16 - 500 - ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`maptitecoloc`.`distributions`, CONSTRAINT `FK_a358d124826f135396e9c616c12` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+16 - 2025-01-22T19:15:19.497Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+16 - 2025-01-22T19:15:41.624Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+16 - 2025-01-22T19:16:15.621Z - DELETE /api/users/16 - 500 - ER_BAD_FIELD_ERROR: Unknown column 'UserEntity__UserEntity_colocations.usersId' in 'on clause'
+Not connected - 2025-01-22T20:38:47.273Z - DELETE /api/users/16 - 401 - Failed to authenticate token
+16 - 2025-01-22T20:39:01.605Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+Not connected - 2025-01-22T20:39:24.604Z - GET /api/users - 401 - Failed to authenticate token
+16 - 2025-01-22T20:39:36.241Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+16 - 2025-01-22T20:39:54.903Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+16 - 2025-01-22T20:42:16.966Z - DELETE /api/users/16 - 500 - Cannot read properties of undefined (reading 'tablePath')
+16 - 2025-01-22T20:44:34.553Z - DELETE /api/users/16 - 500 - Cannot read properties of undefined (reading 'tablePath')
+16 - 2025-01-22T20:47:22.492Z - DELETE /api/users/16 - 500 - Cannot read properties of undefined (reading 'tablePath')
+Not connected - 2025-01-22T20:49:10.545Z - POST /api/users/register - 500 - Cannot read properties of undefined (reading 'tablePath')
+Not connected - 2025-01-22T20:59:38.596Z - DELETE /api/users/16 - 401 - Failed to authenticate token
+16 - 2025-01-22T21:03:12.609Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+16 - 2025-01-22T21:05:29.910Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+16 - 2025-01-22T21:10:00.365Z - DELETE /api/users/16 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+Not connected - 2025-01-22T21:13:36.232Z - POST /api/colocations/24/addRoommate/17 - 401 - Failed to authenticate token
+18 - 2025-01-22T21:13:41.032Z - POST /api/colocations/24/addRoommate/17 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`users_colocations_colocations`, CONSTRAINT `FK_8b71f88e3c69e093d0f7fe08065` FOREIGN KEY (`usersId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+18 - 2025-01-22T21:15:40.104Z - POST /api/colocations/24/addRoommate/17 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`users_colocations_colocations`, CONSTRAINT `FK_8b71f88e3c69e093d0f7fe08065` FOREIGN KEY (`usersId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+Not connected - 2025-01-22T21:26:38.787Z - POST /api/colocations/24/addRoommate/17 - 401 - Failed to authenticate token
+Not connected - 2025-01-22T21:27:44.062Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-22T21:27:51.565Z - POST /api/colocations/24/addRoommate/17 - 401 - Failed to authenticate token
+18 - 2025-01-22T21:27:54.112Z - POST /api/colocations/24/addRoommate/17 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`users_colocations_colocations`, CONSTRAINT `FK_8b71f88e3c69e093d0f7fe08065` FOREIGN KEY (`usersId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+18 - 2025-01-22T21:28:31.138Z - DELETE /api/users/16 - 403 - You can't delete others account
+18 - 2025-01-22T21:28:40.789Z - DELETE /api/users/18 - 400 - You can't delete a user that owns a colocation, you must first delete the colocation(s)
+18 - 2025-01-22T21:29:01.722Z - POST /api/colocations/24/addRoommate/17 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`users_colocations_colocations`, CONSTRAINT `FK_8b71f88e3c69e093d0f7fe08065` FOREIGN KEY (`usersId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+18 - 2025-01-22T21:31:49.670Z - POST /api/colocations/24/addRoommate/17 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`users_colocations_colocations`, CONSTRAINT `FK_8b71f88e3c69e093d0f7fe08065` FOREIGN KEY (`usersId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+18 - 2025-01-22T21:34:46.927Z - POST /api/colocations/24/addRoommate/17 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc`.`users_colocations_colocations`, CONSTRAINT `FK_8b71f88e3c69e093d0f7fe08065` FOREIGN KEY (`usersId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+Not connected - 2025-01-22T21:36:38.472Z - POST /api/users/register - 409 - User already exists
+Not connected - 2025-01-22T21:36:45.238Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-22T21:38:33.217Z - POST /api/charges - 500 - Cannot read properties of undefined (reading 'map')
+Not connected - 2025-01-22T21:38:46.929Z - POST /api/charges - 500 - Cannot read properties of undefined (reading 'map')
+Not connected - 2025-01-22T21:39:00.562Z - POST /api/charges - 500 - Cannot read properties of undefined (reading 'map')
+Not connected - 2025-01-22T21:41:42.212Z - POST /api/distributions - 401 - Failed to authenticate token
+2 - 2025-01-22T21:41:54.353Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+Not connected - 2025-01-22T21:42:15.276Z - GET /api/distributions - 401 - Failed to authenticate token
+2 - 2025-01-22T21:42:55.746Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:43:11.698Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:43:54.544Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:44:06.919Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:44:23.707Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:45:38.754Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:46:01.237Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:46:17.808Z - POST /api/distributions - 400 - You can't add a distribution to a user that has already payed
+2 - 2025-01-22T21:48:26.897Z - POST /api/distributions - 403 - You can't add a distribution to the payer if you are not apart of the colocation
+1 - 2025-01-22T21:49:08.089Z - POST /api/distributions - 403 - You can't add a distribution to the payer if you are not apart of the colocation
+1 - 2025-01-22T21:49:31.191Z - POST /api/distributions - 403 - You can't add a distribution to the payer if you are not apart of the colocation
+Not connected - 2025-01-22T21:59:00.378Z - DELETE /api/colocations/1/removeRoommate/1 - 401 - Failed to authenticate token
+1 - 2025-01-22T21:59:10.451Z - DELETE /api/colocations/1/removeRoommate/1 - 403 - You are not authorized to remove a roommate from this colocation
+Not connected - 2025-01-23T16:41:41.494Z - GET /api/users - 401 - Failed to authenticate token
+Not connected - 2025-01-23T16:44:52.518Z - POST /api/colocations/1/addRoommate/3 - 401 - Failed to authenticate token
+3 - 2025-01-23T16:45:06.257Z - POST /api/colocations/1/addRoommate/3 - 403 - You are not authorized to add a roommate to this colocation
+2 - 2025-01-23T16:45:26.730Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T16:47:04.649Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T16:49:58.240Z - POST /api/colocations/1/addRoommate/1 - 500 - Cannot read properties of undefined (reading 'push')
+Not connected - 2025-01-23T16:50:20.578Z - GET /api/colocations - 401 - Failed to authenticate token
+Not connected - 2025-01-23T16:52:43.333Z - POST /api/colocations/register - 401 - Failed to authenticate token
+2 - 2025-01-23T16:52:47.771Z - POST /api/colocations/1/addRoommate/1 - 400 - You cannot add a roommate thas is already in a colocation
+2 - 2025-01-23T16:52:53.240Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T16:54:19.919Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T16:55:56.038Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T16:59:53.542Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T17:07:10.249Z - GET /api/users - 500 - Cannot read properties of undefined (reading 'tablePath')
+2 - 2025-01-23T17:13:23.507Z - DELETE /api/colocations/1/removeRoommate/3 - 400 - Roommate not in the colocation
+2 - 2025-01-23T17:13:52.129Z - POST /api/colocations/1/addRoommate/3 - 500 - ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`maptitecoloc3`.`users_colocations_colocations`, CONSTRAINT `FK_c8ba19ca8c1f5ca17c3b6f37d74` FOREIGN KEY (`colocationsId`) REFERENCES `colocations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTI)
+2 - 2025-01-23T17:14:48.339Z - DELETE /api/colocations/1/removeRoommate/3 - 400 - Roommate not in the colocation
