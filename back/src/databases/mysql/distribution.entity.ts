@@ -16,4 +16,10 @@ export class DistributionEntity {
 
   @Column("float")
   amount: number;
+
+  @Column("date", { nullable: true })
+  payedAt?: Date;
+
+  @Column({ default: false })
+  payed?: boolean;
 }

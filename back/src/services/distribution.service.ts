@@ -3,6 +3,7 @@ import { ChargeRepository } from "../repositories/charge.repository";
 import { DistributionRepository } from "../repositories/distribution.repository";
 import { DistributionToCreateDTO, SearchDistributionCriteriaDTO } from "../types/distribution/dtos";
 import AppError from "../utils/appError";
+import { writePaymentLog } from "../utils/logHandler";
 
 export class DistributionService {
   private distributionRepository: DistributionRepository;
@@ -87,9 +88,11 @@ export class DistributionService {
       throw new AppError(400, "You can't change a distribution's user");
     }
 
+
     if (distributionData.amount && distributionData.amount < 0) {
       throw new AppError(400, "You can't set a negative amount for a distribution");
     }
+
 
     if (distributionData.amount && distributionData.amount + distribution.charge.distributions.reduce((acc, distri) => distribution.id !== distri.id ? acc + distri.amount : acc + 0, 0) > distribution.charge.amount) {
       throw new AppError(400, "You can't distribute more than the charge amount");
@@ -101,6 +104,14 @@ export class DistributionService {
 
     if (distributionData.amount && distributionData.amount + distribution.charge.distributions.reduce((acc, distri) => distribution.id !== distri.id ? acc + distri.amount : acc + 0, 0) < distribution.charge.amount) {
       distribution.charge.payed = false;
+    }
+
+    if (distributionData.payed && distribution.payed === false) {
+      distributionData.payedAt = new Date();
+      writePaymentLog(`USER ${distribution.user.id} payed DISTRIBUTION :${id} for a total of: ${distributionData.amount ? distributionData.amount : distribution.amount}; ACTION: "pay"`);
+    } 
+    if (distributionData.payed !== undefined && distributionData.payed === false && distribution.payed === true) {
+      writePaymentLog(`USER ${distribution.user.id} canceled payment for DISTRIBUTION :${id}; ACTION: "cancel"`);
     }
 
     await this.distributionRepository.update(id, distributionData);

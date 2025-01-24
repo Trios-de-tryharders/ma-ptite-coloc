@@ -343,3 +343,9 @@ Not connected - 2025-01-24T14:03:28.774Z - GET /api/distributions - 401 - Failed
 2 - 2025-01-24T14:19:23.607Z - PATCH /api/distributions/2 - 400 - You can't distribute more than the charge amount
 2 - 2025-01-24T14:19:47.113Z - PATCH /api/distributions/2 - 400 - You can't distribute more than the charge amount
 2 - 2025-01-24T14:20:41.296Z - PATCH /api/distributions/2 - 400 - You can't distribute more than the charge amount
+Not connected - 2025-01-24T15:37:56.237Z - DELETE /api/users/3 - 401 - Failed to authenticate token
+Not connected - 2025-01-24T15:38:14.647Z - PATCH /api/users/2 - 401 - No token provided
+Not connected - 2025-01-24T15:53:21.532Z - POST /api/users/register - 400 - age must not be less than 18
+Not connected - 2025-01-24T16:45:28.875Z - GET /api/users - 401 - No token provided
+Not connected - 2025-01-24T16:50:00.387Z - GET /api/users - 401 - No token provided
+Not connected - 2025-01-24T16:52:03.936Z - GET /api/users/refresh - 401 - Failed to authenticate token

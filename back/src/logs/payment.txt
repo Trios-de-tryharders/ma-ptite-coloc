@@ -1,0 +1,2 @@
+2025-01-24T15:27:40.161Z - USER 1 canceled payment for DISTRIBUTION :1; ACTION: "cancel"
+2025-01-24T15:27:52.125Z - USER 1 payed DISTRIBUTION :1 for a total of: 50; ACTION: "pay"

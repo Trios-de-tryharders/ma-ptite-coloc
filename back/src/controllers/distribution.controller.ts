@@ -5,7 +5,7 @@ import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { DistributionPresenter } from "../types/distribution/presenter";
 import AppError from "../utils/appError";
-import { writeLog } from "../utils/logHandler";
+import { writeLog, writePaymentLog } from "../utils/logHandler";
 import { DistributionEntity } from "../databases/mysql/distribution.entity";
 import { ChargePresenter, DistributionChargePresenter } from "../types/charge/presenter";
 import { UserPresenter } from "../types/user/presenters";
@@ -42,6 +42,10 @@ export const createDistribution = async (req: Request, res: Response, next: Next
 
         writeLog(`USER: ${user.id} created DISTRIBUTION :${createdDistribution.id}; ACTION: "create"`);
 
+        if (createdDistribution.charge.payed) {
+            writePaymentLog(`USER ${createdDistribution.user.id} payed DISTRIBUTION :${createdDistribution.id} for a total of: ${createdDistribution.amount}; ACTION: "pay"`);
+        }
+        
         res.status(201).json(createdDistribution);
     } catch (error) {
         next(error);
@@ -65,6 +69,7 @@ export const getDistributions = async (req: Request, res: Response, next: NextFu
         }
 
         const distributions = await distributionService.getDistributions(searchCriteria);
+        console.log(distributions);
         const distributionsPresenters = distributions.map(transformDistributionToPresenter);
         res.status(200).json(distributionsPresenters);
     } catch (error) {

@@ -15,6 +15,14 @@ export class DistributionToCreateDTO {
   @Expose()
   @IsNumber()
   amount: number;
+
+  @Expose()
+  @IsOptional()
+  payedAt?: Date;
+
+  @Expose()
+  @IsOptional()
+  payed?: boolean;
 }
 
 export class SearchDistributionCriteriaDTO {
@@ -37,6 +45,14 @@ export class SearchDistributionCriteriaDTO {
   @IsNumber()
   @Expose()
   amount?: number;
+
+  @Expose()
+  @IsOptional()
+  payedAt?: Date;
+
+  @Expose()
+  @IsOptional()
+  payed?: boolean;
 }
 
 export class DistributionToUpdateDTO {
@@ -54,4 +70,12 @@ export class DistributionToUpdateDTO {
   @IsNumber()
   @Expose()
   amount?: number;
+
+  @Expose()
+  @IsOptional()
+  payedAt?: Date;
+
+  @Expose()
+  @IsOptional()
+  payed?: boolean;
 }
