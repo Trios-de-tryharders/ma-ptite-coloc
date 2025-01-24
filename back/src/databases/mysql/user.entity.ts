@@ -25,6 +25,9 @@ export class UserEntity {
   @Column({ default: false })
   isAdmin: boolean;
 
+  @Column("boolean", { default: true })
+  isActive: boolean;
+
   @OneToMany(() => ColocationEntity, colocation => colocation.owner)
   ownedColocations: ColocationEntity[];
 
