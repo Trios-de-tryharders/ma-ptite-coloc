@@ -1,9 +1,9 @@
 import { ChargeEntity } from "../../databases/mysql/charge.entity";
-import { Expose, Transform } from "class-transformer";
-import { UserEntity } from "../../databases/mysql/user.entity";
-import { ColocationEntity } from "../../databases/mysql/colocation.entity";
-import { UserPresenter } from "../user/presenters";
-import { ColocationPresenter } from "../colocation/presenters";
+import { Expose } from "class-transformer";
+
+import { ChargeUserPresenter, UserPresenter } from "../user/presenters";
+import { ChargeColocationPresenter, ColocationPresenter } from "../colocation/presenters";
+import { DistributionPresenter } from "../distribution/presenter";
 
 export class ChargePresenter {
   @Expose()
@@ -16,16 +16,19 @@ export class ChargePresenter {
   amount: number;
 
   @Expose()
-  payer: UserPresenter;
+  payer: ChargeUserPresenter;
 
   @Expose()
-  colocation: ColocationPresenter;
+  colocation: ChargeColocationPresenter;
 
   @Expose()
   date: Date;
 
   @Expose()
   payed: boolean;
+
+  @Expose()  
+  distributions?: DistributionPresenter[]; 
 
   constructor(charge: ChargeEntity) {
     Object.assign(this, charge);

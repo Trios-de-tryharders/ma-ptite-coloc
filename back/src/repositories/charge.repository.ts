@@ -18,15 +18,15 @@ export class ChargeRepository {
   }
 
   async findOneBy(criteria: SearchChargeCriteriaDTO): Promise<ChargeEntity | null> {
-    return this.chargeDB.findOne({ where: criteria, relations: ["payer", "colocation"] });
+    return this.chargeDB.findOne({ where: criteria, relations: ["payer", "colocation", "distributions", "distributions.user"] });
   }
 
   async findBy(criteria: SearchChargeCriteriaDTO): Promise<ChargeEntity[]> {
-    return this.chargeDB.find({ where: criteria, relations: ["payer", "colocation"] });
+    return this.chargeDB.find({ where: criteria, relations: ["payer", "colocation", "distributions",  "distributions.user"] });
   }
 
   async findAll(): Promise<ChargeEntity[]> {
-    return this.chargeDB.find({ relations: ["payer", "colocation"] });
+    return this.chargeDB.find({ relations: ["payer", "colocation", "distributions",  "distributions.user"] });
   }
 
   async delete(id: number): Promise<void> {

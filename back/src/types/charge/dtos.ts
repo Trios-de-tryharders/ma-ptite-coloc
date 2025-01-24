@@ -2,6 +2,7 @@ import { Expose, Transform } from "class-transformer";
 import { IsString, IsNumber, IsInt, IsOptional, Min, IsDate, IsBoolean } from "class-validator";
 import { UserEntity } from "../../databases/mysql/user.entity";
 import { ColocationEntity } from "../../databases/mysql/colocation.entity";
+import { DistributionEntity } from "../../databases/mysql/distribution.entity";
 
 export class ChargeToCreateDTO {
   @Expose()
@@ -55,7 +56,7 @@ export class SearchChargeCriteriaDTO {
   
   @Expose()
   @IsOptional()
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
+  @Transform(({ value }) => (value ? new Date(value) : value), { toClassOnly: true })
   @IsDate()
   date?: Date;
 
@@ -63,6 +64,10 @@ export class SearchChargeCriteriaDTO {
   @IsBoolean()
   @Expose()
   payed?: boolean;
+
+  @Expose()
+  @IsOptional()
+  distributions?: DistributionEntity[]; 
 }
 
 export class ChargeToUpdateDTO {
@@ -96,4 +101,8 @@ export class ChargeToUpdateDTO {
   @IsBoolean()
   @Expose()
   payed?: boolean;
+
+  @Expose()
+  @IsOptional()
+  distributions?: DistributionEntity[]; 
 }

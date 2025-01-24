@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { UserEntity } from "./user.entity";
 import { ColocationEntity } from "./colocation.entity";
+import { DistributionEntity } from "./distribution.entity";
 
 @Entity("charges")
 export class ChargeEntity {
@@ -24,4 +25,7 @@ export class ChargeEntity {
 
   @Column({ default: false })
   payed: boolean;
+
+  @OneToMany(() => DistributionEntity, distribution => distribution.charge)
+  distributions: DistributionEntity[];
 }

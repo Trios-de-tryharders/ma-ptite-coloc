@@ -6,16 +6,25 @@ import { validate } from "class-validator";
 import { ChargePresenter } from "../types/charge/presenter";
 import AppError from "../utils/appError";
 import { writeLog } from "../utils/logHandler";
-import { UserPresenter } from "../types/user/presenters";
-import { ColocationPresenter } from "../types/colocation/presenters";
+import { ChargeUserPresenter, DistributionUserPresenter, UserPresenter } from "../types/user/presenters";
+import { ChargeColocationPresenter, ColocationPresenter } from "../types/colocation/presenters";
 import { ChargeEntity } from "../databases/mysql/charge.entity";
+import { DistributionPresenter } from "../types/distribution/presenter";
 
 const chargeService = new ChargeService();
 
 const transformChargeToPresenter = (charge: ChargeEntity): ChargePresenter => {
     const chargePresenter = plainToInstance(ChargePresenter, charge, { excludeExtraneousValues: true });
-    chargePresenter.payer = plainToInstance(UserPresenter, charge.payer, { excludeExtraneousValues: true });
-    chargePresenter.colocation = plainToInstance(ColocationPresenter, charge.colocation, { excludeExtraneousValues: true });
+    chargePresenter.payer = plainToInstance(ChargeUserPresenter, charge.payer, { excludeExtraneousValues: true });
+    chargePresenter.colocation = plainToInstance(ChargeColocationPresenter, charge.colocation, { excludeExtraneousValues: true });
+    if (charge.distributions){
+        chargePresenter.distributions = charge.distributions.map(distribution => {
+            const distributionPresenter = plainToInstance(DistributionPresenter, distribution, { excludeExtraneousValues: true });
+            distributionPresenter.user = plainToInstance(DistributionUserPresenter, distribution.user, { excludeExtraneousValues: true });
+            return distributionPresenter;
+        });
+    }
+
     return chargePresenter;
 };
 
