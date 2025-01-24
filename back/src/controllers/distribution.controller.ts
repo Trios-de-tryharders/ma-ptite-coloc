@@ -7,7 +7,7 @@ import { DistributionPresenter } from "../types/distribution/presenter";
 import AppError from "../utils/appError";
 import { writeLog } from "../utils/logHandler";
 import { DistributionEntity } from "../databases/mysql/distribution.entity";
-import { ChargePresenter } from "../types/charge/presenter";
+import { ChargePresenter, DistributionChargePresenter } from "../types/charge/presenter";
 import { UserPresenter } from "../types/user/presenters";
 import { ChargeService } from "../services/charge.service";
 
@@ -16,7 +16,7 @@ const chargeService = new ChargeService();
 
 const transformDistributionToPresenter = (distribution: DistributionEntity): DistributionPresenter => {
     const distributionPresenter = plainToInstance(DistributionPresenter, distribution, { excludeExtraneousValues: true });
-    distributionPresenter.charge = plainToInstance(ChargePresenter, distribution.charge, { excludeExtraneousValues: true });
+    distributionPresenter.charge = plainToInstance(DistributionChargePresenter, distribution.charge, { excludeExtraneousValues: true });
     distributionPresenter.user = plainToInstance(UserPresenter, distribution.user, { excludeExtraneousValues: true });
     return distributionPresenter;
 };
@@ -115,6 +115,33 @@ export const deleteDistribution = async (req: Request, res: Response, next: Next
 
         await distributionService.deleteDistribution(id);
         res.status(204).send();
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const patchDistribution = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const distributionToPatchDTO = plainToInstance(DistributionToUpdateDTO, req.body, { excludeExtraneousValues: true });
+
+        const dtoErrors = await validate(distributionToPatchDTO, { skipMissingProperties: true });
+        if (dtoErrors.length > 0) {
+            const constraints = dtoErrors.map(error => Object.values(error.constraints || {})).flat();
+            const errors = constraints.map(constraint => constraint || "").join(", ");
+            throw new AppError(400, errors || "Invalid input");
+        }
+
+        await distributionService.updateDistribution(id, distributionToPatchDTO);
+        const patchedDistribution = await distributionService.getDistributionById(id);
+        if (!patchedDistribution) {
+            throw new AppError(404, "Distribution not found");
+        }
+        const distributionPresenter = transformDistributionToPresenter(patchedDistribution);
+
+        writeLog(`USER ${(req as any).decoded.user.id} patched DISTRIBUTION :${id}; ACTION: "patch"`);
+
+        res.status(200).json(distributionPresenter);
     } catch (error) {
         next(error);
     }

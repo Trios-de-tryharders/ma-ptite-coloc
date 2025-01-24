@@ -34,3 +34,30 @@ export class ChargePresenter {
     Object.assign(this, charge);
   }
 }
+
+export class DistributionChargePresenter {
+  @Expose()
+  id: number;
+
+  @Expose()
+  type: string;
+
+  @Expose()
+  amount: number;
+
+  @Expose()
+  payer: ChargeUserPresenter;
+
+  @Expose()
+  colocation: ChargeColocationPresenter;
+
+  @Expose()
+  date: Date;
+
+  @Expose()
+  payed: boolean;
+
+  constructor(charge: ChargeEntity) {
+    Object.assign(this, charge);
+  }
+}

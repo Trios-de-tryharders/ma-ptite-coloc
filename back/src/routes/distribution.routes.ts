@@ -8,5 +8,6 @@ router.post("/", checkJWT, distributionController.createDistribution);
 router.get("/", checkJWT, distributionController.getDistributions);
 router.put("/:id", checkJWT, distributionController.updateDistribution);
 router.delete("/:id", checkJWT, distributionController.deleteDistribution);
+router.patch("/:id", checkJWT, distributionController.patchDistribution);
 
 export default router;
