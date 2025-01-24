@@ -25,10 +25,12 @@ export class UserRepository {
   }
 
   async findBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity[]> {
+    criteria = { ...criteria, isActive: criteria.isActive ?? true };
     return this.userDB.find({ where: criteria, relations: ["ownedColocations", "distributions", "colocations"] });
   }
 
   async findOneBy(criteria: SearchUserCriteriaDTO): Promise<UserEntity | null> {
+    criteria = { ...criteria, isActive: criteria.isActive ?? true };
     return this.userDB.findOne({ where: criteria, relations: ["ownedColocations", "distributions", "colocations"] });
   }
 

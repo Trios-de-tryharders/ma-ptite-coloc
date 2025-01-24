@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToMany } from "typeorm";
 import { UserEntity } from "./user.entity";
+import { ChargeEntity } from "./charge.entity";
 
 @Entity("colocations")
 export class ColocationEntity {
@@ -21,6 +22,9 @@ export class ColocationEntity {
   @Column("text")
   description: string;
 
+  @Column("boolean", { default: true })
+  isActive: boolean;
+
   @ManyToOne(() => UserEntity, user => user.ownedColocations)
   owner: UserEntity;
 
@@ -29,4 +33,7 @@ export class ColocationEntity {
 
   @ManyToOne(() => UserEntity, { nullable: true })
   chief?: UserEntity;
+
+  @OneToMany(() => ChargeEntity, charge => charge.colocation)
+  charges: ChargeEntity[];
 }

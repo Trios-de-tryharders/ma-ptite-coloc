@@ -35,7 +35,17 @@ export class ColocationService {
       throw new AppError(403, "You can't delete others colocation");
     }
 
-    await this.colocationRepository.delete(id);
+    if (colocation.roommates.length) {
+      throw new AppError(400, "You can't delete a colocation with roommates");
+    }
+
+    if (colocation.charges.find(charge => !charge.payed)) {
+      throw new AppError(400, "You can't delete a colocation with unpaid charges");
+    }
+
+    colocation.isActive = false;
+
+    await this.colocationRepository.save(colocation);
   }
 
   async updateColocation(id: number, colocationToUpdate: Partial<ColocationEntity>, userId: number, chiefId: number | null = null): Promise<ColocationEntity | null> {
@@ -50,6 +60,9 @@ export class ColocationService {
       if (!chief) {
         throw new AppError(404, "Chief not found");
       }
+      if (!colocation.chief?.id && colocation.owner.id !== userId || colocation.chief?.id !== userId) {
+        throw new AppError(400, "You don't have the permission to update the chief");
+      }
       if (!colocation.roommates.some(r => r.id === chiefId)) {
         throw new AppError(400, "The new chief must be a roommate in the colocation");
       }
@@ -60,7 +73,6 @@ export class ColocationService {
       throw new AppError(403, "You can't update others colocation");
     }
 
-    // Merge updates into the existing colocation object
     Object.assign(colocation, colocationToUpdate);
 
     await this.colocationRepository.save(colocation);
@@ -87,9 +99,6 @@ export class ColocationService {
       throw new AppError(400, "You cannot add a roommate thas is already in a colocation")
     }
 
-    
-    console.log('Colation result:', colocation);
-    console.log('Roommate result:',roommate);
     if (colocation.roommates.some(r => r.id === roommateId)) {
       throw new AppError(400, "Roommate already in the colocation");
     }

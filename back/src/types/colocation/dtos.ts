@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsString, IsNumber, IsInt, IsOptional, IsArray } from "class-validator";
+import { IsString, IsNumber, IsInt, IsOptional, IsArray, IsBoolean } from "class-validator";
 import { UserEntity } from "../../databases/mysql/user.entity";
 
 export class ColocationToCreateDTO {
@@ -73,6 +73,11 @@ export class SearchColocationCriteriaDTO {
   @IsOptional()
   @IsInt()
   id?: number;
+
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
 
   @IsOptional()
   @IsString()

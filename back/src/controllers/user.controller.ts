@@ -43,6 +43,9 @@ export const getUser = async (req: Request, res: Response, next: NextFunction): 
     if (req.query.age) {
       criteria.age = parseInt(req.query.age as string, 10);
     }
+    if (req.query.isActive) {
+      criteria.isActive = req.query.isActive === "true";
+    }
     
     const searchCriteria = plainToInstance(SearchUserCriteriaDTO, criteria, { excludeExtraneousValues: true });
 

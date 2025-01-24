@@ -83,6 +83,11 @@ export class SearchUserCriteriaDTO {
 
   @Expose()
   @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @Expose()
+  @IsOptional()
   @IsString()
   firstname?: UserEntity['firstname'];
 
