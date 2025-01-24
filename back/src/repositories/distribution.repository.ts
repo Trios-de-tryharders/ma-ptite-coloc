@@ -18,11 +18,11 @@ export class DistributionRepository {
   }
 
   async findOneBy(criteria: SearchDistributionCriteriaDTO): Promise<DistributionEntity | null> {
-    return this.distributionDB.findOne({ where: criteria, relations: ["charge", "user"] });
+    return this.distributionDB.findOne({ where: criteria, relations: ["charge", "user", "charge.distributions"] });
   }
 
   async findBy(criteria: SearchDistributionCriteriaDTO): Promise<DistributionEntity[]> {
-    return this.distributionDB.find({ where: criteria, relations: ["charge", "user"] });
+    return this.distributionDB.find({ where: criteria, relations: ["charge", "user", "charge.distributions"] });
   }
 
   async delete(id: number): Promise<void> {
