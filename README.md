@@ -2,6 +2,9 @@
 
 Ce projet propose une API RESTful pour la gestion des colocations. Elle permet de gérer les utilisateurs, les colocations, les charges et leur distribution. La documentation de l'API est disponible via Swagger.
 
+## Note technique
+[Documentation sur les choix techniques du projet](https://docs.google.com/document/d/1MAYKIeOoeSWobeypQ3A50Krt8S_OeQ44IWdBBslIwTk/edit?usp=sharing)
+
 ## Fonctionnalités principales
 
 ### Utilisateurs
